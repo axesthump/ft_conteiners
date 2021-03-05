@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/casubmar/CLionProjects/ft_container/ft.hpp
+/Users/casubmar/ft_conteiners/ft.hpp
 
-/home/casubmar/CLionProjects/ft_container/list.hpp
+/Users/casubmar/ft_conteiners/list.hpp
 memory
 -
 stdexcept
@@ -18,19 +18,41 @@ cstddef
 limits
 -
 ft.hpp
-/home/casubmar/CLionProjects/ft_container/ft.hpp
+/Users/casubmar/ft_conteiners/ft.hpp
 
-/home/casubmar/CLionProjects/ft_container/main.cpp
-iostream
--
+/Users/casubmar/ft_conteiners/main.cpp
+list.hpp
+/Users/casubmar/ft_conteiners/list.hpp
+vector.hpp
+/Users/casubmar/ft_conteiners/vector.hpp
+ft.hpp
+/Users/casubmar/ft_conteiners/ft.hpp
+queue.hpp
+/Users/casubmar/ft_conteiners/queue.hpp
+stack.hpp
+/Users/casubmar/ft_conteiners/stack.hpp
 list
 -
 vector
 -
-list.hpp
-/home/casubmar/CLionProjects/ft_container/list.hpp
-vector.hpp
-/home/casubmar/CLionProjects/ft_container/vector.hpp
+queue
+-
+stack
+-
+map
+-
+iostream
+-
 
-/home/casubmar/CLionProjects/ft_container/vector.hpp
+/Users/casubmar/ft_conteiners/queue.hpp
+list.hpp
+/Users/casubmar/ft_conteiners/list.hpp
+
+/Users/casubmar/ft_conteiners/stack.hpp
+vector.hpp
+/Users/casubmar/ft_conteiners/vector.hpp
+
+/Users/casubmar/ft_conteiners/vector.hpp
+iostream
+-
 

@@ -5,6 +5,8 @@
 #ifndef FT_CONTAINER_QUEUE_HPP
 #define FT_CONTAINER_QUEUE_HPP
 
+#include "list.hpp"
+
 namespace ft {
 
 	template <class T, class Container = list<T> >

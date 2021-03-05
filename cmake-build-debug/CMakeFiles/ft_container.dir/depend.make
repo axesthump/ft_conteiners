@@ -4,5 +4,7 @@
 CMakeFiles/ft_container.dir/main.cpp.o: ../ft.hpp
 CMakeFiles/ft_container.dir/main.cpp.o: ../list.hpp
 CMakeFiles/ft_container.dir/main.cpp.o: ../main.cpp
+CMakeFiles/ft_container.dir/main.cpp.o: ../queue.hpp
+CMakeFiles/ft_container.dir/main.cpp.o: ../stack.hpp
 CMakeFiles/ft_container.dir/main.cpp.o: ../vector.hpp
 

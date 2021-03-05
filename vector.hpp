@@ -4,6 +4,7 @@
 
 #ifndef FT_CONTAINER_VECTOR_HPP
 #define FT_CONTAINER_VECTOR_HPP
+#include <iostream>
 
 namespace ft {
 	template <class T, class Alloc = std::allocator<T> >
@@ -411,6 +412,7 @@ public:
 	void	clear() {
 		while (_size)
 			pop_back();
+	}
 
 
 

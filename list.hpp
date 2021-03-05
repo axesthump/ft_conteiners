@@ -13,7 +13,7 @@
 
 namespace ft {
 
-	template <class T, class Alloc = std::allocator<T> >
+template <class T, class Alloc = std::allocator<T> >
 class list {
 
 public:
@@ -260,7 +260,7 @@ public:
 
 	template <class InputIterator> // todo Сделать typename ft::enable_if<std::__is_input_iterator<InputIterator>::value>::type* = 0
 	list (InputIterator first, InputIterator last,
-		  const allocator_type& alloc = allocator_type()) {
+		  const allocator_type& alloc = allocator_type(), typename ft::enable_if<std::__is_input_iterator<InputIterator>::value>::type* = 0) {
 		this->alloc = alloc;
 		create_end_node();
 		while(first != last) {
@@ -271,6 +271,15 @@ public:
 
 	list (const list& x) { // todo ХЗ
 		*this = x;
+	}
+
+	list& operator= (const list& x) {
+		clear_list();
+		const_iterator first = x.begin();
+		for (; first != x.end(); ++first) {
+			push_back(*first);
+		}
+		return *this;
 	}
 
 	iterator begin() {
@@ -307,10 +316,10 @@ public:
 
 	//Element access:
 	reference front() {
-		return end_node->next->data;
+		return *end_node->next->data;
 	}
 	const_reference front() const {return end_node->next->data;}
-	reference back() {return end_node->prev->data;}
+	reference back() {return *end_node->prev->data;}
 	const_reference back() const {return end_node->prev->data;}
 
 	//Modifiers:
@@ -320,7 +329,7 @@ public:
 	}
 
 	 template <class InputIterator>
-	 void assign (InputIterator first, InputIterator last) {
+	 void assign (InputIterator first, InputIterator last, typename ft::enable_if<std::__is_input_iterator<InputIterator>::value>::type* = 0) {
 		clear_list();
 		while (first != last) {
 			push_back(*first);
@@ -328,12 +337,12 @@ public:
 		}
 	}
 
-//	void assign (size_type n, const value_type& val) {
-//		clear_list();
-//		for (size_type i = 0; i < n; ++i) {
-//			push_back(val);
-//		}
-//	}
+	void assign (size_type n, const value_type& val) {
+		clear_list();
+		for (size_type i = 0; i < n; ++i) {
+			push_back(val);
+		}
+	}
 
 	void push_front (const value_type& val) {
 		link_node(end_node, end_node->next, create_node(val));
@@ -345,7 +354,7 @@ public:
 
 	void pop_back() {
 		t_node* temp = end_node->prev;
-		link_two_nodes(temp);
+		unlink_node(temp);
 		delete_node(temp);
 	}
 
@@ -354,31 +363,34 @@ public:
 		return iterator(position.getPtr()->prev);
 	}
 
-//	void insert (iterator position, size_type n, const value_type& val) {
-//		for (size_type i = 0; i < n; ++i) {
-//			link_node(position.getPtr()->prev, position.getPtr(), create_node(val));
-//		}
-//	}
+	void insert (iterator position, size_type n, const value_type& val) {
+		for (size_type i = 0; i < n; ++i) {
+			link_node(position.getPtr()->prev, position.getPtr(), create_node(val));
+		}
+	}
 
 	template <class InputIterator>
 	void insert (iterator position, InputIterator first, InputIterator last) {
 		ft::list<T> temp(first, last); //todo странное решение может почистить
-		first = temp.begin();
-		last = temp.end();
-		for (; first != last; ++first) {
-			insert(position, *first);
+		iterator firstT = temp.begin();
+		iterator lastT = temp.end();
+		for (; firstT != lastT; ++firstT) {
+			insert(position, *firstT);
 		}
 	}
 
 	iterator erase (iterator position) {
-		link_two_nodes(position.getPtr());
-		return iterator(delete_node(position.getPtr()));
+		unlink_node(position.getPtr());
+		t_node * res = position.getPtr()->next;
+		delete_node(position.getPtr());
+		return iterator(res);
 	}
 
 	iterator erase (iterator first, iterator last) {
 		for (; first != last; ) {
 			first = erase(first);
 		}
+		return first;
 	}
 
 	void swap (list& x) {
@@ -410,7 +422,7 @@ public:
 
 	void splice (iterator position, list& x, iterator i) {
 		 t_node* prev = position.getPtr()->prev;
-		 link_two_nodes(i.getPtr());
+		unlink_node(i.getPtr());
 		 link_node(prev, position.getPtr(), i.getPtr());
 		 ++_size;
 		 --x._size;
@@ -435,7 +447,7 @@ public:
 	}
 
 	template <class Predicate>
-	void remove_if (Predicate pred) {
+	void remove_if (Predicate pred) { // todo тут шляпа!
 		iterator start = begin();
 		while (start != end()) {
 			if (pred(*start))
@@ -443,6 +455,8 @@ public:
 			else
 				++start;
 		}
+		iterator start2 = begin();
+		++start;
 	}
 
 	void	unique() {
@@ -596,7 +610,7 @@ private:
 		next->prev = target;
 	}
 
-	void	link_two_nodes(t_node* target) {
+	void	unlink_node(t_node* target) {
 		target->prev->next = target->next;
 		target->next->prev = target->prev;
 	}
@@ -605,6 +619,7 @@ private:
 		end_node = allocator_rebind.allocate(1);
 		end_node->next = end_node;
 		end_node->prev = end_node;
+		end_node->data = 0;
 	}
 
 	t_node* delete_node(t_node* node) {
@@ -620,33 +635,63 @@ private:
 	}
 
 	void clear_list() {
-		t_node * temp = end_node->next;
-		while (temp != end_node) {
-			temp = delete_node(temp);
+		while (size()) {
+			pop_back();
 		}
 	}
 
 
 }; //end list
 
-// Relational operators (list)
-	template <class T, class Alloc>
-	bool operator== (const ft::list<T,Alloc>& lhs, const ft::list<T,Alloc>& rhs) {
-		if (lhs.size() != rhs.size()) {
-			return false;
-		}
-		typename ft::list<T>::iterator lfirst = lhs.begin();
-		typename ft::list<T>::iterator rfirst = rhs.begin();
-		for (; lfirst != lhs.end(); ++lfirst) {
-			if (*lfirst != *rfirst) {
-				return false;
-			}
-			++rfirst;
-		}
-		return true;
-	}
-
 
 } //end ft
+
+
+template <class InputIterator1, class InputIterator2>
+bool my_lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
+							  InputIterator2 first2, InputIterator2 last2)
+{
+	while (first1!=last1)
+	{
+		if (first2==last2 || *first2<*first1) return false;
+		else if (*first1<*first2) return true;
+		++first1; ++first2;
+	}
+	return (first2!=last2);
+}
+
+// Relational operators (list)
+template <class T, class Alloc>
+bool operator== (const ft::list<T,Alloc>& lhs, const ft::list<T,Alloc>& rhs) {
+	if (lhs.size() != rhs.size()) {
+		return false;
+	}
+	return true;
+}
+
+template <class T, class Alloc>
+bool operator!= (const ft::list<T,Alloc>& lhs, const ft::list<T,Alloc>& rhs) {
+	return !(lhs == rhs);
+}
+
+
+template <class T, class Alloc>
+bool operator<  (const ft::list<T,Alloc>& lhs, const ft::list<T,Alloc>& rhs) {
+	!my_lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+}
+
+template <class T, class Alloc>
+bool operator<= (const ft::list<T,Alloc>& lhs, const ft::list<T,Alloc>& rhs) {
+	return lhs < rhs || lhs == rhs;
+}
+
+template <class T, class Alloc>
+bool operator>  (const ft::list<T,Alloc>& lhs, const ft::list<T,Alloc>& rhs) {
+	my_lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+}
+template <class T, class Alloc>
+bool operator>= (const ft::list<T,Alloc>& lhs, const ft::list<T,Alloc>& rhs) {
+	return lhs > rhs || lhs == rhs;
+}
 
 #endif //FT_CONTAINER_LIST_HPP
