@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/casubmar/CLionProjects/ft_container/ft.hpp
+
+/home/casubmar/CLionProjects/ft_container/list.hpp
+memory
+-
+stdexcept
+-
+cstddef
+-
+limits
+-
+ft.hpp
+/home/casubmar/CLionProjects/ft_container/ft.hpp
+
+/home/casubmar/CLionProjects/ft_container/main.cpp
+iostream
+-
+list
+-
+vector
+-
+list.hpp
+/home/casubmar/CLionProjects/ft_container/list.hpp
+vector.hpp
+/home/casubmar/CLionProjects/ft_container/vector.hpp
+
+/home/casubmar/CLionProjects/ft_container/vector.hpp
+
