@@ -1,1944 +1,3162 @@
-//
-//  main.cpp
-//  ft_containers
-//
-//  Created by Shira Broderick on 10/01/2021.
-//  Copyright © 2021 Shira Broderick. All rights reserved.
-//
-
-#include "list.hpp"
-#include "vector.hpp"
-#include "ft.hpp"
-#include "queue.hpp"
-#include "stack.hpp"
-//#include "map.hpp"
 #include <list>
 #include <vector>
-#include <queue>
-#include <stack>
-#include <map>
-#include <iostream>
+#include "list.hpp"
+#include <cmath>
+#include "iostream"
+#include "vector.hpp"
 
+// a predicate implemented as a function:
+bool single_digit (const int& value) { return (value<10); }
 
+// a predicate implemented as a class:
 struct is_odd {
-	bool operator() (const int & value) { return (value % 2 ) == 1; }
+	bool operator() (const int& value) { return (value%2)==1; }
 };
 
-bool same_integral_part (float first, float second) {
-	return ( int(first) == int(second) );
-}
+// a predicate implemented as a function:
+bool shot_string (const std::string& value) { return (value.size() <= 3); }
 
-bool mycomparison (double first, double second) {
-	return ( int(first) <= int(second) );
-}
-
-int main() {
-
-//	{
-//		std::vector<int> one(1, 1);
-//		std::vector<int> two = one;
-//		std::vector<int>::iterator it = two.begin();
-//		std::vector<int>::iterator ite = two.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//	}
-//	{
-//		ft::vector<int> one(1, 1);
-//		ft::vector<int> two = one;
-//		ft::vector<int>::iterator it = two.begin();
-//		ft::vector<int>::iterator ite = two.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//	}
-
-//	ft::list<int> myList;
-//	myList.push_back(3);
-//	myList.push_back(4);
-//	myList.push_back(5);
-//	ft::list<int>::reverse_iterator it = myList.rbegin();
-//	ft::list<int>::reverse_iterator ite = myList.rend();
-//	for (; it != ite; it++) {
-//		std::cout << *it << " ";
-//	}
-//	std::cout << std::endl;
-
-//	FIXME: --LIST
+// comparison, not case sensitive.
+bool compare_nocase (const std::string& first, const std::string& second)
+{
+	unsigned int i=0;
+	while ( (i<first.length()) && (i<second.length()) )
 	{
-		ft::list<int> testC;
-		ft::list<int> testCopy(5, 5);
-		ft::list<int>::iterator itcopy = testCopy.begin();
-		ft::list<int>::iterator itecopy = testCopy.end();
-		for (; itcopy != itecopy; itcopy++) {
-			std::cout << *itcopy << " ";
-		}
-		std::cout << std::endl;
-		testC = testCopy;
-		itcopy = testC.begin();
-		itecopy = testC.end();
-		for (; itcopy != itecopy; itcopy++) {
-			std::cout << *itcopy << " ";
-		}
-		std::cout << std::endl;
-
-
-		ft::list<int> myList;
-		std::list<int> original;
-
-		original.insert(original.begin(), 7);
-		ft::list<int>::iterator ret = myList.insert(myList.begin(), 7);
-		std::cout << "return value: " << *ret << std::endl;
-		myList.insert(++(myList.begin()), 5);
-		original.insert(++(original.begin()), 5);
-
-		ft::list<int>::iterator it = myList.begin();
-		ft::list<int>::iterator ite = myList.end();
-
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::list<int>::iterator oit = original.begin();
-		std::list<int>::iterator oite = original.end();
-
-		for (; oit != oite; oit++) {
-			std::cout << *oit << " ";
-		}
-		std::cout << std::endl;
-		std::cout << std::endl << "--------insert in range--------" << std::endl << std::endl;
-
-		myList.insert(++(myList.begin()), 3, 3);
-		original.insert(++(original.begin()), 3, 3);
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		oit = original.begin();
-		oite = original.end();
-		for (; oit != oite; oit++) {
-			std::cout << *oit << " ";
-		}
-		std::cout << std::endl;
-		std::cout << std::endl << "-------insert with iter-------" << std::endl << std::endl;
-
-		ft::list<int> myList2;
-		myList2.insert(myList2.begin(), 2, 2);
-		myList2.insert(++(myList2.begin()), myList.begin(), myList.end());
-		it = myList2.begin();
-		ite = myList2.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << std::endl << "-------init whith value------" << std::endl << std::endl;
-
-		ft::list<int> myList3(3, 4);
-		it = myList3.begin();
-		ite = myList3.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << std::endl << "-------init whith iter-------" << std::endl << std::endl;
-
-		ft::list<int> myList4(myList3.begin(), myList3.end());
-
-		it = myList4.begin();
-		ite = myList4.end();
-
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << std::endl << "------------erase------------" << std::endl << std::endl;
-		std::cout << "befor: " << std::endl;
-		it = myList.begin();
-		it++;
-		myList.insert(it, 4);
-		myList.insert(it, 4);
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		it = myList.begin();
-		it++;
-		ret = myList.erase(it);
-		std::cout << "after: " << std::endl;
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "return value: " << *ret << std::endl;
-
-		std::cout << std::endl << "--------erase in rang-------" << std::endl << std::endl;
-		std::cout << "befor: " << std::endl;
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		it = myList.begin();
-		it++;
-		ite = myList.end();
-		ite--; ite--;
-		ret = myList.erase(it, ite);
-		std::cout << "after: " << std::endl;
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "return value: " << *ret << std::endl;
-		std::cout << std::endl << "-----------assign----------" << std::endl << std::endl;
-		myList2 = myList;
-		it = myList2.begin();
-		ite = myList2.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << std::endl << "-----------copy------------" << std::endl << std::endl;
-		myList3 = myList;
-		it = myList3.begin();
-		ite = myList3.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << std::endl << "-----------front-----------" << std::endl << std::endl;
-		std::cout << "front : " << myList3.front() << std::endl;
-		const int value = myList3.front();
-		std::cout << "const front : " << value << std::endl;
-
-		std::cout << std::endl << "-----------back------------" << std::endl << std::endl;
-		std::cout << "back : " << myList3.back() << std::endl;
-		const int value2 = myList3.back();
-		std::cout << "const back : " << value2 << std::endl;
-
-		std::cout << std::endl << "--------size/empty---------" << std::endl << std::endl;
-		std::cout << "size  : " << myList3.size() << std::endl;
-		std::cout << "empty : " << (myList3.empty() ? "true" : "false") << std::endl;
-		std::list<std::string> t;
-		t.push_back("123");
-		t.push_back("123");
-		ft::list<std::string> t1;
-		t1.push_back("123");
-		t.push_back("123");
-		std::cout << "max size original: " << t.max_size() << std::endl;
-		std::cout << "max size my      : " << t1.max_size() << std::endl;
-		std::cout << std::endl << "-----------assign------------" << std::endl << std::endl;
-		myList2.insert(myList2.begin(), 3, 89);
-		it = myList2.begin();
-		ite = myList2.end();
-		std::cout << "myList2\n";
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "befor: " << std::endl;
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		it = myList2.begin();
-		ite = myList2.end();
-		myList.assign(it, ite);
-		std::cout << "after: " << std::endl;
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << std::endl << "-------assign with val-------" << std::endl << std::endl;
-		std::cout << "befor: " << std::endl;
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		myList.assign(4, 11);
-		std::cout << "after: " << std::endl;
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << std::endl << "----------push front----------" << std::endl << std::endl;
-		myList.push_front(55);
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "size  : " << myList.size() << std::endl;
-		std::cout << " * pop_front * " << std::endl;
-		myList.pop_front();
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "size  : " << myList.size() << std::endl;
-		std::cout << std::endl << "----------push back-----------" << std::endl << std::endl;
-		myList.push_back(55);
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "size  : " << myList.size() << std::endl;
-		std::cout << " * pop_back * " << std::endl;
-		myList.pop_back();
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "size  : " << myList.size() << std::endl;
-		std::cout << std::endl << "------------swap-------------" << std::endl << std::endl;
-		ft::list<int> first (3,100);
-		ft::list<int> second (5,200);
-		it = first.begin();
-		ite = first.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		it = second.begin();
-		ite = second.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "after swap: " << std::endl;
-		first.swap(second);
-		it = first.begin();
-		ite = first.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		it = second.begin();
-		ite = second.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << std::endl << "------resize smaller------" << std::endl << std::endl;
-		std::cout << "befor: " << std::endl;
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "size  : " << myList.size() << std::endl;
-		myList.resize(2);
-		std::cout << "after: " << std::endl;
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "size  : " << myList.size() << std::endl;
-		std::cout << std::endl << "------resize greater------" << std::endl << std::endl;
-		std::cout << "befor: " << std::endl;
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "size  : " << myList.size() << std::endl;
-		myList.resize(5, 44);
-		std::cout << "after: " << std::endl;
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "size  : " << myList.size() << std::endl;
-		std::cout << std::endl << "--------splice all-------" << std::endl << std::endl;
-		std::cout << "befor list 1: " << std::endl;
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "size  : " << myList.size() << std::endl;
-		std::cout << "befor list 2: " << std::endl;
-		it = myList2.begin();
-		ite = myList2.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "size  : " << myList2.size() << std::endl;
-		it = myList.begin();
-		it++; it++;
-		myList.splice(it, myList2);
-		std::cout << "position = 3: " << std::endl;
-		std::cout << "after list 1: " << std::endl;
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "size  : " << myList.size() << std::endl;
-		std::cout << "after list 2: " << std::endl;
-		it = myList2.begin();
-		ite = myList2.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "size  : " << myList2.size() << std::endl;
-		std::cout << std::endl << "--------splice one-------" << std::endl << std::endl;
-		std::cout << "befor list 1: " << std::endl;
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "size  : " << myList.size() << std::endl;
-		std::cout << "befor list 2: " << std::endl;
-		myList2.insert(myList2.begin(), 5, 66);
-		it = myList2.begin();
-		ite = myList2.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "size  : " << myList2.size() << std::endl;
-		it = myList2.begin();
-		it++; it++;
-		ite = myList.begin();
-		ite++; ite++;
-		myList2.splice(it, myList, ite);
-		std::cout << "position = 3: " << std::endl;
-		std::cout << "after list 1: " << std::endl;
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "size  : " << myList.size() << std::endl;
-		std::cout << "after list 2: " << std::endl;
-		it = myList2.begin();
-		ite = myList2.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "size  : " << myList2.size() << std::endl;
-		std::cout << std::endl << "---------remove----------" << std::endl << std::endl;
-		std::cout << "befor: " << std::endl;
-		it = myList2.begin();
-		ite = myList2.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		myList2.remove(66);
-		std::cout << "after: " << std::endl;
-		it = myList2.begin();
-		ite = myList2.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		std::cout << std::endl << "---remove pred (is odd)--" << std::endl << std::endl;
-		std::cout << "befor: " << std::endl;
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-		myList.remove_if(is_odd());
-		std::cout << "after: " << std::endl;
-		it = myList.begin();
-		ite = myList.end();
-		for (; it != ite; it++) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-//		std::cout << std::endl << "---------unique----------" << std::endl << std::endl;
-//		std::cout << "befor: " << std::endl;
-//		ft::list<float> myListFloat;
-//		myListFloat.push_back(3.1);
-//		myListFloat.push_back(3.44);
-//		myListFloat.push_back(3.44);
-//		myListFloat.push_back(7.34);
-//		myListFloat.push_back(8.1);
-//		myListFloat.push_back(8.1);
-//		myListFloat.push_back(8.1);
-//		myListFloat.push_back(8.1);
-//		myListFloat.push_back(11.1);
-//		myListFloat.push_back(3.1);
-//		myListFloat.push_back(11.1);
-//		myListFloat.push_back(11.1);
-//		ft::list<float>::iterator itf = myListFloat.begin();
-//		ft::list<float>::iterator itef = myListFloat.end();;
-//		for (; itf != itef; itf++) {
-//			std::cout << *itf << " ";
-//		}
-//		std::cout << std::endl;
-//		myListFloat.unique();
-//		std::cout << "after: " << std::endl;
-//		itf = myListFloat.begin();
-//		itef = myListFloat.end();
-//		for (; itf != itef; itf++) {
-//			std::cout << *itf << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << std::endl << "-------unique pred------" << std::endl << std::endl;
-//		std::cout << "befor: " << std::endl;
-//		myListFloat.clear();
-//		myListFloat.push_back(2.72);
-//		myListFloat.push_back(3.14);
-//		myListFloat.push_back(12.15);
-//		myListFloat.push_back(12.77);
-//		myListFloat.push_back(15.3);
-//		myListFloat.push_back(72.25);
-//		myListFloat.push_back(73.0);
-//		myListFloat.push_back(73.35);
-//		itf = myListFloat.begin();
-//		itef = myListFloat.end();;
-//		for (; itf != itef; itf++) {
-//			std::cout << *itf << " ";
-//		}
-//		std::cout << std::endl;
-//		myListFloat.unique(same_integral_part);
-//		std::cout << "after: " << std::endl;
-//		itf = myListFloat.begin();
-//		itef = myListFloat.end();
-//		for (; itf != itef; itf++) {
-//			std::cout << *itf << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << std::endl << "---------merge----------" << std::endl << std::endl;
-//		ft::list<double> myDoubFirst;
-//		ft::list<double> myDoubSecond;
-//		myDoubFirst.push_back (3.1);
-//		myDoubFirst.push_back (2.2);
-//		myDoubFirst.push_back (2.9);
-//		myDoubSecond.push_back (3.7);
-//		myDoubSecond.push_back (7.1);
-//		myDoubSecond.push_back (1.4);
-//		std::cout << "befor myDoubFirst: " << std::endl;
-//		ft::list<double>::iterator itd = myDoubFirst.begin();
-//		ft::list<double>::iterator ited = myDoubFirst.end();
-//		for (; itd != ited; itd++) {
-//			std::cout << *itd << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "befor myDoubSecond: " << std::endl;
-//		itd = myDoubSecond.begin();
-//		ited = myDoubSecond.end();
-//		for (; itd != ited; itd++) {
-//			std::cout << *itd << " ";
-//		}
-//		std::cout << std::endl;
-//		myDoubFirst.merge(myDoubSecond);
-//		std::cout << "after myDoubFirst: " << std::endl;
-//		itd = myDoubFirst.begin();
-//		ited = myDoubFirst.end();
-//		for (; itd != ited; itd++) {
-//			std::cout << *itd << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "after myDoubSecond: " << std::endl;
-//		itd = myDoubSecond.begin();
-//		ited = myDoubSecond.end();
-//		for (; itd != ited; itd++) {
-//			std::cout << *itd << " ";
-//		}
-//		std::cout << std::endl << "--merge comp with sort--" << std::endl << std::endl;
-//		myDoubFirst.clear();
-//		myDoubSecond.clear();
-//		myDoubFirst.push_back (3.1);
-//		myDoubFirst.push_back (2.2);
-//		myDoubFirst.push_back (2.9);
-//		myDoubSecond.push_back (3.7);
-//		myDoubSecond.push_back (7.1);
-//		myDoubSecond.push_back (1.4);
-//		myDoubFirst.sort();
-//		myDoubSecond.sort();
-//		std::cout << "befor myDoubFirst: " << std::endl;
-//		itd = myDoubFirst.begin();
-//		ited = myDoubFirst.end();
-//		for (; itd != ited; itd++) {
-//			std::cout << *itd << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "befor myDoubSecond: " << std::endl;
-//		itd = myDoubSecond.begin();
-//		ited = myDoubSecond.end();
-//		for (; itd != ited; itd++) {
-//			std::cout << *itd << " ";
-//		}
-//		std::cout << std::endl;
-//		myDoubFirst.merge(myDoubSecond, mycomparison);
-//		std::cout << "after myDoubFirst: " << std::endl;
-//		itd = myDoubFirst.begin();
-//		ited = myDoubFirst.end();
-//		for (; itd != ited; itd++) {
-//			std::cout << *itd << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "after myDoubSecond: " << std::endl;
-//		itd = myDoubSecond.begin();
-//		ited = myDoubSecond.end();
-//		for (; itd != ited; itd++) {
-//			std::cout << *itd << " ";
-//		}
-//		std::cout << std::endl << "---------sort---------" << std::endl << std::endl;
-//		myList.clear();
-//		myList.push_back(4);
-//		myList.push_back(9);
-//		myList.push_back(1);
-//		myList.push_back(0);
-//		myList.push_back(4);
-//		myList.push_back(8);
-//		std::cout << "befor: " << std::endl;
-//		it = myList.begin();
-//		ite = myList.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		ft::list<int>::iterator pos = myList.begin();
-//		pos++;
-//		std::cout << "iterator val: " << *pos << std::endl;
-//		myList.sort();
-//		std::cout << "after: " << std::endl;
-//		it = myList.begin();
-//		ite = myList.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "iterator val: " << *pos << std::endl;
-//		std::cout << std::endl << "---------revers---------" << std::endl << std::endl;
-//		myList.clear();
-//		for (int i = 1; i < 10; i++) {
-//			myList.push_back(i);
-//		}
-//		std::cout << "befor: " << std::endl;
-//		it = myList.begin();
-//		ite = myList.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		myList.reverse();
-//		std::cout << "after: " << std::endl;
-//		it = myList.begin();
-//		ite = myList.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << std::endl << "-----operator == ------" << std::endl << std::endl;
-//		myList2.clear();
-//		myList3.clear();
-//		myList2.push_back(2);
-//		myList2.push_back(4);
-//		myList3.push_back(2);
-//		myList3.push_back(4);
-//		std::cout << ((myList2 == myList3) ? "true" : "false") << std::endl;
-//		myList2.pop_back();
-//		myList2.push_back(5);
-//		std::cout << ((myList2 == myList3) ? "true" : "false") << std::endl;
-//		myList2.pop_back();
-//		myList2.push_back(4);
-//		myList2.push_back(6);
-//		std::cout << ((myList2 == myList3) ? "true" : "false") << std::endl;
-//		std::cout << std::endl << "-----operator != ------" << std::endl << std::endl;
-//		myList2.clear();
-//		myList3.clear();
-//		myList2.push_back(2);
-//		myList2.push_back(4);
-//		myList3.push_back(2);
-//		myList3.push_back(4);
-//		std::cout << ((myList2 != myList3) ? "true" : "false") << std::endl;
-//		myList2.pop_back();
-//		myList2.push_back(5);
-//		std::cout << ((myList2 != myList3) ? "true" : "false") << std::endl;
-//		myList2.pop_back();
-//		myList2.push_back(4);
-//		myList2.push_back(6);
-//		std::cout << ((myList2 != myList3) ? "true" : "false") << std::endl;
-//
-//		std::cout << std::endl << "-----operator < -------" << std::endl << std::endl;
-//		myList2.clear();
-//		myList3.clear();
-//		myList2.push_back(2);
-//		myList2.push_back(4);
-//		myList3.push_back(2);
-//		myList3.push_back(4);
-//		std::cout << ((myList2 < myList3) ? "true" : "false") << std::endl;
-//		myList2.clear();
-//		myList3.clear();
-//		myList2.push_back(2);
-//		myList2.push_back(3);
-//		myList3.push_back(2);
-//		myList3.push_back(4);
-//		std::cout << ((myList2 < myList3) ? "true" : "false") << std::endl;
-//		myList2.clear();
-//		myList3.clear();
-//		myList2.push_back(2);
-//		myList2.push_back(7);
-//		myList3.push_back(2);
-//		myList3.push_back(4);
-//		std::cout << ((myList2 < myList3) ? "true" : "false") << std::endl;
-//		std::cout << std::endl << "-----operator <= ------" << std::endl << std::endl;
-//		myList2.clear();
-//		myList3.clear();
-//		myList2.push_back(2);
-//		myList2.push_back(4);
-//		myList3.push_back(2);
-//		myList3.push_back(4);
-//		std::cout << ((myList2 <= myList3) ? "true" : "false") << std::endl;
-//		myList2.clear();
-//		myList3.clear();
-//		myList2.push_back(2);
-//		myList2.push_back(3);
-//		myList3.push_back(2);
-//		myList3.push_back(4);
-//		std::cout << ((myList2 <= myList3) ? "true" : "false") << std::endl;
-//		myList2.clear();
-//		myList3.clear();
-//		myList2.push_back(2);
-//		myList2.push_back(7);
-//		myList3.push_back(2);
-//		myList3.push_back(4);
-//		std::cout << ((myList2 <= myList3) ? "true" : "false") << std::endl;
-//		myList2.clear();
-//		myList3.clear();
-//		myList2.push_back(2);
-//		myList2.push_back(4);
-//		myList3.push_back(2);
-//		myList3.push_back(4);
-//		myList3.push_back(5);
-//		std::cout << ((myList2 <= myList3) ? "true" : "false") << std::endl;
-//		std::cout << std::endl << "-----operator > -------" << std::endl << std::endl;
-//		myList2.clear();
-//		myList3.clear();
-//		myList2.push_back(2);
-//		myList2.push_back(4);
-//		myList3.push_back(2);
-//		myList3.push_back(4);
-//		std::cout << ((myList2 > myList3) ? "true" : "false") << std::endl;
-//		myList2.clear();
-//		myList3.clear();
-//		myList2.push_back(2);
-//		myList2.push_back(3);
-//		myList3.push_back(2);
-//		myList3.push_back(4);
-//		std::cout << ((myList2 > myList3) ? "true" : "false") << std::endl;
-//		myList2.clear();
-//		myList3.clear();
-//		myList2.push_back(2);
-//		myList2.push_back(7);
-//		myList3.push_back(2);
-//		myList3.push_back(4);
-//		std::cout << ((myList2 > myList3) ? "true" : "false") << std::endl;
-//		std::cout << std::endl << "-----operator >= ------" << std::endl << std::endl;
-//		myList2.clear();
-//		myList3.clear();
-//		myList2.push_back(2);
-//		myList2.push_back(4);
-//		myList3.push_back(2);
-//		myList3.push_back(4);
-//		std::cout << ((myList2 >= myList3) ? "true" : "false") << std::endl;
-//		myList2.clear();
-//		myList3.clear();
-//		myList2.push_back(2);
-//		myList2.push_back(3);
-//		myList3.push_back(2);
-//		myList3.push_back(4);
-//		std::cout << ((myList2 >= myList3) ? "true" : "false") << std::endl;
-//		myList2.clear();
-//		myList3.clear();
-//		myList2.push_back(2);
-//		myList2.push_back(7);
-//		myList3.push_back(2);
-//		myList3.push_back(4);
-//		std::cout << ((myList2 >= myList3) ? "true" : "false") << std::endl;
-//		myList2.clear();
-//		myList3.clear();
-//		myList2.push_back(2);
-//		myList2.push_back(4);
-//		myList2.push_back(6);
-//		myList3.push_back(2);
-//		myList3.push_back(4);
-//		std::cout << ((myList2 >= myList3) ? "true" : "false") << std::endl;
-//		std::cout << std::endl << "-----swap non func-----" << std::endl << std::endl;
-//		ft::list<char> swapfirst (3,'A');
-//		ft::list<char> swapsecond (5,'B');
-//		ft::list<char>::iterator itch = swapfirst.begin();
-//		ft::list<char>::iterator itech = swapfirst.end();
-//		for (; itch != itech; itch++) {
-//			std::cout << *itch << " ";
-//		}
-//		std::cout << std::endl;
-//		itch = swapsecond.begin();
-//		itech = swapsecond.end();
-//		for (; itch != itech; itch++) {
-//			std::cout << *itch << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "after swap: " << std::endl;
-//		swap(swapfirst, swapsecond);
-//		itch = swapfirst.begin();
-//		itech = swapfirst.end();
-//		for (; itch != itech; itch++) {
-//			std::cout << *itch << " ";
-//		}
-//		std::cout << std::endl;
-//		itch = swapsecond.begin();
-//		itech = swapsecond.end();
-//		for (; itch != itech; itch++) {
-//			std::cout << *itch << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << std::endl << "--------splice man-------" << std::endl << std::endl;
-//		ft::list<int> mylist1, mylist2;
-//		ft::list<int>::iterator its;
-//		for (int i=1; i<=4; ++i)
-//			mylist1.push_back(i);
-//
-//		for (int i=1; i<=3; ++i)
-//			mylist2.push_back(i*10);
-//
-//		its = mylist1.begin();
-//		++its;
-//
-//		mylist1.splice (its, mylist2);
-//		mylist2.splice (mylist2.begin(),mylist1, its);
-//		its = mylist1.begin();
-//		std::advance(its,3);
-//		mylist1.splice ( mylist1.begin(), mylist1, its, mylist1.end());
-//		std::cout << "mylist1 contains:";
-//		for (its=mylist1.begin(); its!=mylist1.end(); ++its)
-//			std::cout << ' ' << *its;
-//		std::cout << std::endl;
-//		std::cout << "mylist2 contains:";
-//		for (it=mylist2.begin(); it!=mylist2.end(); ++it)
-//			std::cout << ' ' << *it;
-//		std::cout << std::endl;
-//		std::cout << std::endl << "-------sort string------" << std::endl << std::endl;
-//		ft::list<std::string> listStr;
-//		listStr.push_back("ABC");
-//		listStr.push_back("ABA");
-//		listStr.push_back("ABB");
-//		listStr.push_back("CBC");
-//		listStr.push_back("BBC");
-//		listStr.sort();
-//		ft::list<std::string>::iterator itStr = listStr.begin();
-//		ft::list<std::string>::iterator iteStr = listStr.end();
-//		for (; itStr != iteStr; itStr++) {
-//			std::cout << *itStr << " ";
-//		}
-//		std::cout << std::endl;
+		if (tolower(first[i])<tolower(second[i])) return true;
+		else if (tolower(first[i])>tolower(second[i])) return false;
+		++i;
 	}
+	return ( first.length() < second.length() );
+}
 
-	//FIXME: --VECTOR
-//	{
-//		std::cout << std::endl << "----------resize---------" << std::endl << std::endl;
-//		ft::vector<int> myVec(5, 1);
-//		ft::vector<int>::iterator it = myVec.begin();
-//		ft::vector<int>::iterator ite = myVec.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		myVec.resize(10);
-//		it = myVec.begin();
-//		ite = myVec.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		const ft::vector<int> myVec2(5, 1);
-//		ft::vector<int>::const_iterator itc = myVec2.begin();
-//		ft::vector<int>::const_iterator itec = myVec2.end();
-//		for (; itc != itec; itc++) {
-//			std::cout << *itc << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << std::endl;
-//		std::cout << "revers iterator: " << std::endl;
-//		ft::vector<int>::reverse_iterator itr = myVec.rbegin();
-//		ft::vector<int>::reverse_iterator iter = myVec.rend();
-//		for (; itr != iter; itr++) {
-//			std::cout << *itr << " ";
-//		}
-//		std::cout << std::endl;
-//		it = myVec.begin();
-//		it++;
-//		ft::vector<int>::iterator test = myVec.insert(it, 7);
-//		it = myVec.begin();
-//		ite = myVec.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << *test << " ";
-//		std::cout << std::endl;
-//		it = myVec.begin();
-//		std::cout << *(it + 1) << " ";
-//		std::cout << std::endl;
-//		std::cout << std::endl << "-------operator= --------" << std::endl << std::endl;
-//		ft::vector<int> myVec3(3, 1);
-//		ft::vector<int> myVec4(6, 2);
-//		std::cout << "befor first vec: " << std::endl;
-//		it = myVec3.begin();
-//		ite = myVec3.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "befor second vec: " << std::endl;
-//		it = myVec4.begin();
-//		ite = myVec4.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "* first = second * " << std::endl;
-//		myVec3 = myVec4;
-//		std::cout << "after first vec: " << std::endl;
-//		it = myVec3.begin();
-//		ite = myVec3.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "after second vec: " << std::endl;
-//		it = myVec4.begin();
-//		ite = myVec4.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "capacity first vector: " << myVec3.capacity() << std::endl;
-//		std::cout << "size first vector: " << myVec3.size() << std::endl;
-//
-//
-//		ft::vector<int> myVec5(6, 5);
-//		ft::vector<int> myVec6(2, 8);
-//		std::cout << "befor first vec: " << std::endl;
-//		it = myVec5.begin();
-//		ite = myVec5.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "befor second vec: " << std::endl;
-//		it = myVec6.begin();
-//		ite = myVec6.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "* first = second * " << std::endl;
-//		myVec5 = myVec6;
-//		std::cout << "after first vec: " << std::endl;
-//		it = myVec5.begin();
-//		ite = myVec5.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "after second vec: " << std::endl;
-//		it = myVec6.begin();
-//		ite = myVec6.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "capacity first vector: " << myVec5.capacity() << std::endl;
-//		std::cout << "size first vector: " << myVec5.size() << std::endl;
-//		std::cout << "* insert element at 3 position * " << std::endl;
-//		it = (myVec5.begin() + 2);
-//		myVec5.insert(it, 9);
-//		myVec5.insert(it, 9);
-//		myVec5.insert(it, 9);
-//		myVec5.insert(it, 9);
-//		myVec5.insert(it, 9);
-//		it = myVec5.begin();
-//		ite = myVec5.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "capacity first vector: " << myVec5.capacity() << std::endl;
-//		std::cout << "size first vector: " << myVec5.size() << std::endl;
-//		std::cout << std::endl << "---init with input iter---" << std::endl << std::endl;
-//		it = myVec5.begin();
-//		ite = myVec5.end();
-//		ft::vector<int> myVec7(it, ite);
-//		it = myVec7.begin();
-//		ite = myVec7.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "capacity vector: " << myVec7.capacity() << std::endl;
-//		std::cout << "size vector: " << myVec7.size() << std::endl;
-//		std::cout << std::endl << "--insert with input iter--" << std::endl << std::endl;
-//		std::cout << "* insert 4 element at 2 position * " << std::endl;
-//		it = myVec4.begin();
-//		ite = myVec4.end();
-//		it++;
-//		ite -= 1;
-//		ft::vector<int>::iterator tmp = myVec7.begin();
-//		tmp++;
-//		myVec7.insert(tmp, it, ite);
-//		it = myVec7.begin();
-//		ite = myVec7.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "capacity vector: " << myVec7.capacity() << std::endl;
-//		std::cout << "size vector: " << myVec7.size() << std::endl;
-//		std::cout << std::endl << "----------max size--------" << std::endl << std::endl;
-//		std::vector<float> stdFloat;
-//		stdFloat.push_back(4.4);
-//		stdFloat.push_back(4.4);
-//		stdFloat.push_back(4.4);
-//		stdFloat.push_back(4.4);
-//		stdFloat.push_back(4.4);
-//		ft::vector<float> myFloat;
-//		myFloat.push_back(4.1);
-//		myFloat.push_back(4.2);
-//		myFloat.push_back(4.3);
-//		myFloat.push_back(4.4);
-//		myFloat.push_back(4.5);
-//		std::cout << "capacity standart vector: " << stdFloat.capacity() << std::endl;
-//		std::cout << "capacity my vector      : " << myFloat.capacity() << std::endl;
-//		std::cout << "max size standart: " << stdFloat.max_size() << std::endl;
-//		std::cout << "max size my      : " << myFloat.max_size() << std::endl;
-//		myFloat.reserve(3);
-//		std::cout << "reserve 3 capacity : " << myFloat.capacity() << std::endl;
-//		myFloat.reserve(11);
-//		std::cout << "reserve 11 capacity: " << myFloat.capacity() << std::endl;
-//		std::cout << std::endl << "-------operator= --------" << std::endl << std::endl;
-//		ft::vector<float>::iterator itf = myFloat.begin();
-//		ft::vector<float>::iterator itef = myFloat.end();
-//		std::cout << "container : " << std::endl;
-//		itf = myFloat.begin();
-//		itef = myFloat.end();
-//		for (; itf != itef; itf++) {
-//			std::cout << *itf << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "value [3] : " << " ";
-//		std::cout << myFloat[3] << std::endl;
-//		std::cout << std::endl << "------------at-----------" << std::endl << std::endl;
-//		itf = myFloat.begin();
-//		itef = myFloat.end();
-//		std::cout << "container : " << std::endl;
-//		itf = myFloat.begin();
-//		itef = myFloat.end();
-//		for (; itf != itef; itf++) {
-//			std::cout << *itf << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "size vector: " << myFloat.size() << std::endl;
-//		std::cout << "value [2] : " << " ";
-//		std::cout << myFloat.at(2) << std::endl;
-////		exeption!!!
-////		std::cout << myFloat.at(20) << std::endl;
-//		std::cout << std::endl << "-------front/back--------" << std::endl << std::endl;
-//		const ft::vector<double> myDoub(2, 3);
-//		std::cout << "const front in vector(2, 3): " << myDoub.front() << std::endl;
-//		std::cout << "const back in vector(2, 3): " << myDoub.back() << std::endl;
-//		myVec.clear();
-//		myVec.push_back(1);
-//		myVec.push_back(2);
-//		myVec.push_back(3);
-//		myVec.push_back(4);
-//		std::cout << "vector: ";
-//		it = myVec.begin();
-//		ite = myVec.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "front in vector: " << myVec.front() << std::endl;
-//		std::cout << "back in vector: " << myVec.back() << std::endl;
-//		std::cout << std::endl << "---------assign----------" << std::endl << std::endl;
-//		ft::vector<int> first;
-//		ft::vector<int> second;
-//		ft::vector<int> third;
-//		ft::vector<int> fourth(10, 200);
-//
-//		first.assign(7, 100);
-//
-//		it = first.begin() + 1;
-//		second.assign(it, first.end() - 1);
-//		fourth.assign(it, first.end() - 1);
-//		int myints[] = {1776, 7, 4};
-//		third.assign(myints, myints + 3);
-//
-//		std::cout << "Size of first: " << int (first.size()) << std::endl;
-//		std::cout << "Capacity of first: " << int (first.capacity()) << std::endl;
-//		std::cout << "Size of second: " << int (second.size()) << std::endl;
-//		std::cout << "Capacity of second: " << int (second.capacity()) << std::endl;
-//		std::cout << "Size of third: " << int (third.size()) << std::endl;
-//		std::cout << "Capacity of third: " << int (third.capacity()) << std::endl;
-//		std::cout << "Size of fourth: " << int (fourth.size()) << std::endl;
-//		std::cout << "Capacity of fourth: " << int (fourth.capacity()) << std::endl;
-//		std::cout << std::endl << "--------push/pop---------" << std::endl << std::endl;
-//		std::cout << "* push 1...5 * " << std::endl;
-//		ft::vector<int> popPushVec;
-//		popPushVec.push_back(1);
-//		popPushVec.push_back(2);
-//		popPushVec.push_back(3);
-//		popPushVec.push_back(4);
-//		popPushVec.push_back(5);
-//		it = popPushVec.begin();
-//		ite = popPushVec.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "Size     : " << popPushVec.size() << std::endl;
-//		std::cout << "Capacity : " << popPushVec.capacity() << std::endl;
-//		std::cout << "* pop 3 times * " << std::endl;
-//		popPushVec.pop_back();
-//		popPushVec.pop_back();
-//		popPushVec.pop_back();
-//		it = popPushVec.begin();
-//		ite = popPushVec.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "Size     : " << popPushVec.size() << std::endl;
-//		std::cout << "Capacity : " << popPushVec.capacity() << std::endl;
-//		std::cout << std::endl << "SANDART VECTOR" << std::endl;
-//		std::cout << "* push 1...5 * " << std::endl;
-//		std::vector<int> stdPushPop;
-//		stdPushPop.push_back(1);
-//		stdPushPop.push_back(2);
-//		stdPushPop.push_back(3);
-//		stdPushPop.push_back(4);
-//		stdPushPop.push_back(5);
-//		std::cout << "SSize     : " << stdPushPop.size() << std::endl;
-//		std::cout << "SCapacity : " << stdPushPop.capacity() << std::endl;
-//		stdPushPop.pop_back();
-//		stdPushPop.pop_back();
-//		stdPushPop.pop_back();
-//		std::cout << "* pop 3 times * " << std::endl;
-//		std::cout << "SSize     : " << stdPushPop.size() << std::endl;
-//		std::cout << "SCapacity : " << stdPushPop.capacity() << std::endl;
-//		std::cout << std::endl << "-------erase iter--------" << std::endl << std::endl;
-//		myVec.clear();
-//		std::cout << "vector befor: " << std::endl;
-//		myVec.push_back(1);
-//		myVec.push_back(2);
-//		myVec.push_back(3);
-//		myVec.push_back(4);
-//		myVec.push_back(5);
-//		myVec.push_back(6);
-//		myVec.push_back(7);
-//		myVec.push_back(8);
-//		it = myVec.begin();
-//		ite = myVec.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "Size     : " << myVec.size() << std::endl;
-//		std::cout << "Capacity : " << myVec.capacity() << std::endl;
-//		std::cout << "erase [2..5): " << std::endl;
-//		it = myVec.begin();
-//		it++;
-//		ite = it;
-//		ite = ite + 3;
-//		ft::vector<int>::iterator retIter = myVec.erase(it, ite);
-//		std::cout << "vector after: " << std::endl;
-//		it = myVec.begin();
-//		ite = myVec.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "Size     : " << myVec.size() << std::endl;
-//		std::cout << "Capacity : " << myVec.capacity() << std::endl;
-//		std::cout << "return iterator value: " << *retIter << std::endl;
-//		std::cout << std::endl << "----------erase----------" << std::endl << std::endl;
-//		std::cout << "vector befor: " << std::endl;
-//		it = myVec.begin();
-//		ite = myVec.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "* erase last element *" << std::endl;
-//		ite = myVec.end();
-//		ite--;
-//		myVec.erase(ite);
-//		std::cout << "vector after: " << std::endl;
-//		it = myVec.begin();
-//		ite = myVec.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "* erase first element *" << std::endl;
-//		it = myVec.begin();
-//		myVec.erase(it);
-//		std::cout << "vector after: " << std::endl;
-//		it = myVec.begin();
-//		ite = myVec.end();
-//		for (; it != ite; it++) {
-//			std::cout << *it << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "Size     : " << myVec.size() << std::endl;
-//		std::cout << "Capacity : " << myVec.capacity() << std::endl;
-//		std::cout << std::endl << "----------swap-----------" << std::endl << std::endl;
-//		ft::vector<char> firstStr(5, 'A');
-//		ft::vector<char> secondStr(2, 'B');
-//		std::cout << "vector first befor: " << std::endl;
-//		ft::vector<char>::iterator itch = firstStr.begin();
-//		ft::vector<char>::iterator itech = firstStr.end();
-//		for (; itch != itech; itch++) {
-//			std::cout << *itch << " ";
-//		}
-//		std::cout << std::endl;
-//		ft::vector<char>::iterator tmpChar = firstStr.begin();
-//		tmpChar += 4;
-//		std::cout << "iterator value befor swap: " << *tmpChar << std::endl;
-//		std::cout << "vector second befor: " << std::endl;
-//		itch = secondStr.begin();
-//		itech = secondStr.end();
-//		for (; itch != itech; itch++) {
-//			std::cout << *itch << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "* swap *" << std::endl;
-//		firstStr.swap(secondStr);
-//		std::cout << "iterator value after swap: " << *tmpChar << std::endl;
-//		std::cout << "vector first after: " << std::endl;
-//		itch = firstStr.begin();
-//		itech = firstStr.end();
-//		for (; itch != itech; itch++) {
-//			std::cout << *itch << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "vector second after: " << std::endl;
-//		itch = secondStr.begin();
-//		itech = secondStr.end();
-//		for (; itch != itech; itch++) {
-//			std::cout << *itch << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "* swap *" << std::endl;
-//		firstStr.swap(secondStr);
-//		std::cout << "vector first after: " << std::endl;
-//		itch = firstStr.begin();
-//		itech = firstStr.end();
-//		for (; itch != itech; itch++) {
-//			std::cout << *itch << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "vector second after: " << std::endl;
-//		itch = secondStr.begin();
-//		itech = secondStr.end();
-//		for (; itch != itech; itch++) {
-//			std::cout << *itch << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << std::endl << "-----operator == ------" << std::endl << std::endl;
-//		myVec3.clear();
-//		myVec4.clear();
-//		myVec3.push_back(2);
-//		myVec3.push_back(4);
-//		myVec4.push_back(2);
-//		myVec4.push_back(4);
-//		std::cout << ((myVec3 == myVec4) ? "true" : "false") << std::endl;
-//		myVec3.pop_back();
-//		myVec3.push_back(5);
-//		std::cout << ((myVec3 == myVec4) ? "true" : "false") << std::endl;
-//		myVec3.pop_back();
-//		myVec3.push_back(4);
-//		myVec3.push_back(6);
-//		std::cout << ((myVec3 == myVec4) ? "true" : "false") << std::endl;
-//		std::cout << std::endl << "-----operator != ------" << std::endl << std::endl;
-//		myVec3.clear();
-//		myVec4.clear();
-//		myVec3.push_back(2);
-//		myVec3.push_back(4);
-//		myVec4.push_back(2);
-//		myVec4.push_back(4);
-//		std::cout << ((myVec3 != myVec4) ? "true" : "false") << std::endl;
-//		myVec3.pop_back();
-//		myVec3.push_back(5);
-//		std::cout << ((myVec3 != myVec4) ? "true" : "false") << std::endl;
-//		myVec3.pop_back();
-//		myVec3.push_back(4);
-//		myVec3.push_back(6);
-//		std::cout << ((myVec3 != myVec4) ? "true" : "false") << std::endl;
-//		std::cout << std::endl << "-----operator < -------" << std::endl << std::endl;
-//		myVec3.clear();
-//		myVec4.clear();
-//		myVec3.push_back(2);
-//		myVec3.push_back(4);
-//		myVec4.push_back(2);
-//		myVec4.push_back(4);
-//		std::cout << ((myVec3 < myVec4) ? "true" : "false") << std::endl;
-//		myVec3.clear();
-//		myVec4.clear();
-//		myVec3.push_back(2);
-//		myVec3.push_back(3);
-//		myVec4.push_back(2);
-//		myVec4.push_back(4);
-//		std::cout << ((myVec3 < myVec4) ? "true" : "false") << std::endl;
-//		myVec3.clear();
-//		myVec4.clear();
-//		myVec3.push_back(2);
-//		myVec3.push_back(7);
-//		myVec4.push_back(2);
-//		myVec4.push_back(4);
-//		std::cout << ((myVec3 < myVec4) ? "true" : "false") << std::endl;
-//		std::cout << std::endl << "-----operator <= ------" << std::endl << std::endl;
-//		myVec3.clear();
-//		myVec4.clear();
-//		myVec3.push_back(2);
-//		myVec3.push_back(4);
-//		myVec4.push_back(2);
-//		myVec4.push_back(4);
-//		std::cout << ((myVec3 <= myVec4) ? "true" : "false") << std::endl;
-//		myVec3.clear();
-//		myVec4.clear();
-//		myVec3.push_back(2);
-//		myVec3.push_back(3);
-//		myVec4.push_back(2);
-//		myVec4.push_back(4);
-//		std::cout << ((myVec3 <= myVec4) ? "true" : "false") << std::endl;
-//		myVec3.clear();
-//		myVec4.clear();
-//		myVec3.push_back(2);
-//		myVec3.push_back(7);
-//		myVec4.push_back(2);
-//		myVec4.push_back(4);
-//		std::cout << ((myVec3 <= myVec4) ? "true" : "false") << std::endl;
-//		myVec3.clear();
-//		myVec4.clear();
-//		myVec3.push_back(2);
-//		myVec3.push_back(4);
-//		myVec4.push_back(2);
-//		myVec4.push_back(4);
-//		myVec4.push_back(5);
-//		std::cout << ((myVec3 <= myVec4) ? "true" : "false") << std::endl;
-//		std::cout << std::endl << "-----operator > -------" << std::endl << std::endl;
-//		myVec3.clear();
-//		myVec4.clear();
-//		myVec3.push_back(2);
-//		myVec3.push_back(4);
-//		myVec4.push_back(2);
-//		myVec4.push_back(4);
-//		std::cout << ((myVec3 > myVec4) ? "true" : "false") << std::endl;
-//		myVec3.clear();
-//		myVec4.clear();
-//		myVec3.push_back(2);
-//		myVec3.push_back(3);
-//		myVec4.push_back(2);
-//		myVec4.push_back(4);
-//		std::cout << ((myVec3 > myVec4) ? "true" : "false") << std::endl;
-//		myVec3.clear();
-//		myVec4.clear();
-//		myVec3.push_back(2);
-//		myVec3.push_back(7);
-//		myVec4.push_back(2);
-//		myVec4.push_back(4);
-//		std::cout << ((myVec3 > myVec4) ? "true" : "false") << std::endl;
-//		std::cout << std::endl << "-----operator >= ------" << std::endl << std::endl;
-//		myVec3.clear();
-//		myVec4.clear();
-//		myVec3.push_back(2);
-//		myVec3.push_back(4);
-//		myVec4.push_back(2);
-//		myVec4.push_back(4);
-//		std::cout << ((myVec3 >= myVec4) ? "true" : "false") << std::endl;
-//		myVec3.clear();
-//		myVec4.clear();
-//		myVec3.push_back(2);
-//		myVec3.push_back(3);
-//		myVec4.push_back(2);
-//		myVec4.push_back(4);
-//		std::cout << ((myVec3 >= myVec4) ? "true" : "false") << std::endl;
-//		myVec3.clear();
-//		myVec4.clear();
-//		myVec3.push_back(2);
-//		myVec3.push_back(7);
-//		myVec4.push_back(2);
-//		myVec4.push_back(4);
-//		std::cout << ((myVec3 >= myVec4) ? "true" : "false") << std::endl;
-//		myVec3.clear();
-//		myVec4.clear();
-//		myVec3.push_back(2);
-//		myVec3.push_back(4);
-//		myVec3.push_back(6);
-//		myVec4.push_back(2);
-//		myVec4.push_back(4);
-//		std::cout << ((myVec3 >= myVec4) ? "true" : "false") << std::endl;
-//		std::cout << std::endl << "-----swap non func-----" << std::endl << std::endl;
-//		firstStr.clear();
-//		firstStr.push_back('A');
-//		firstStr.push_back('B');
-//		firstStr.push_back('C');
-//		secondStr.clear();
-//		secondStr.push_back('F');
-//		secondStr.push_back('G');
-//		secondStr.push_back('H');
-//		secondStr.push_back('J');
-//		secondStr.push_back('K');
-//		itch = firstStr.begin();
-//		itech = firstStr.end();
-//		for (; itch != itech; itch++) {
-//			std::cout << *itch << " ";
-//		}
-//		std::cout << std::endl;
-//		itch = secondStr.begin();
-//		itech = secondStr.end();
-//		for (; itch != itech; itch++) {
-//			std::cout << *itch << " ";
-//		}
-//		std::cout << std::endl;
-//		std::cout << "after swap: " << std::endl;
-//		swap(firstStr, secondStr);
-//		itch = firstStr.begin();
-//		itech = firstStr.end();
-//		for (; itch != itech; itch++) {
-//			std::cout << *itch << " ";
-//		}
-//		std::cout << std::endl;
-//		itch = secondStr.begin();
-//		itech = secondStr.end();
-//		for (; itch != itech; itch++) {
-//			std::cout << *itch << " ";
-//		}
-//		std::cout << std::endl;
-//	}
+bool compare_int(const int& x, const int& y) {return x < y;}
 
-	//FIXME: --QUEUE
+// a binary predicate implemented as a function:
+bool same_integral_part (int first, int second)
+{ return ( first==second + 1 ); }
+
+// a binary predicate implemented as a function:
+bool stringPlus (std::string first, std::string second)
+{ return ( first.size() == second.size() + 1 ); }
+
+// a binary predicate implemented as a function:
+bool same_integral_part2 (double first, double second)
+{ return ( int(first)==int(second) ); }
+
+// a binary predicate implemented as a class:
+struct is_near {
+	bool operator() (double first, double second)
+	{ return (fabs(first-second)<5.0); }
+};
+
+
+template <typename T>
+void viewAll(ft::list<T> tmp)
+{
+	size_t k = 0;
+	std::cout << " ft::list<T>: ";
+	for (typename ft::list<T>::iterator it=tmp.begin(); it != tmp.end(); ++it)
+	{
+		std::cout << " | " << *it;
+		k++;
+	}
+	std::cout << " |" << std::endl;
+}
+
+template <typename T>
+void viewAllOriginal(std::list<T> tmp)
+{
+	size_t k = 0;
+	std::cout << "std::list<T>: ";
+	for (typename std::list<T>::iterator it=tmp.begin(); it != tmp.end(); ++it)
+	{
+		std::cout << " | " << *it;
+		k++;
+	}
+	std::cout << " |" << std::endl;
+}
+
+template <typename T>
+void printVector(ft::vector<T> vector) {
+	std::cout << " ft::vector<T>: ";
+	for (typename ft::vector<T>::iterator start = vector.begin(); start != vector.end(); ++start) {
+		std::cout << "|" << *start << "|";
+	}
+	std::cout << std::endl;
+}
+
+template <typename T>
+void printVector(std::vector<T> vector) {
+	std::cout << "std::vector<T>: ";
+	for (typename std::vector<T>::iterator start = vector.begin(); start != vector.end(); ++start) {
+		std::cout << "|" << *start << "|";
+	}
+	std::cout << std::endl;
+}
+
+int main()
+{
+//	size_t i = 1;
+//	size_t k = 0;
+//	size_t mistakes = 0;
+//	int value = 0;
+//	std::string valueStr = "";
+//
+//	ft::list<int> A;
+//	std::list<int> AOrigin;
+//	ft::list<std::string> B;
+//	std::list<std::string> BOrigin;
+//
+//	std::cout << "Test " << i++ << std::endl;
+//	std::cout << "****************** Test list(itb,ite) list<int> ******************" << std::endl;
+//	ft::list<int> first;                                // empty list of ints
+//	ft::list<int> second (4,100);                       // four ints with value 100
+//	ft::list<int> third (second.begin(),second.end());
+//
+//	// the iterator constructor can also be used to construct from arrays:
+//	int myints[] = {16,2,77,29};
+//	ft::list<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
+//	std::cout << "The contents of fifth are: ";
+//	for (ft::list<int>::iterator it = fifth.begin(); it != fifth.end(); it++)
+//		std::cout << *it << ' ';
+//
+//	std::cout << '\n';
+//	if (fifth.size() == 4)
+//		std::cout << "✅ OK\n" << std::endl;
+//	else
 //	{
-//		ft::queue<float> myQueue;
-//		std::cout << std::endl << "---------empty---------" << std::endl << std::endl;
-//		std::cout << "* empty *" << std::endl;
-//		std::cout << "Container is empty: " << (myQueue.empty() ? "true" : "false") << std::endl;
-//		std::cout << "* not empty *" << std::endl;
-//		myQueue.push(1.1);
-//		std::cout << "Container is empty: " << (myQueue.empty() ? "true" : "false") << std::endl;
-//		std::cout << std::endl << "---------size----------" << std::endl << std::endl;
-//		std::cout << "* size: 1 *" << std::endl;
-//		std::cout << "Container size: " << myQueue.size() << std::endl;
-//		myQueue.push(2.2);
-//		myQueue.push(3.3);
-//		myQueue.push(4.4);
-//		std::cout << "* size: 4 *" << std::endl;
-//		std::cout << "Container size: " << myQueue.size() << std::endl;
-//		std::cout << "* empty *" << std::endl;
-//		myQueue.pop();
-//		myQueue.pop();
-//		myQueue.pop();
-//		myQueue.pop();
-//		std::cout << "Container size: " << myQueue.size() << std::endl;
-//		std::cout << std::endl << "-------front/back------" << std::endl << std::endl;
-//		myQueue.push(1.1);
-//		myQueue.push(2.2);
-//		myQueue.push(3.3);
-//		myQueue.push(4.4);
-//		std::cout << "front: " << myQueue.front() << std::endl;
-//		std::cout << "back : " << myQueue.back() << std::endl;
-//		std::cout << std::endl << "-----operator == ------" << std::endl << std::endl;
-//		ft::queue<int> myQueue1;
-//		ft::queue<int> myQueue2;
-//		myQueue1.push(2);
-//		myQueue1.push(4);
-//		myQueue2.push(2);
-//		myQueue2.push(4);
-//		std::cout << "* (2, 4) == (2, 4) *" << std::endl;
-//		std::cout << ((myQueue1 == myQueue2) ? "true" : "false") << std::endl;
-//		myQueue1.pop();
-//		myQueue1.push(5);
-//		std::cout << "* (2, 4, 5) == (2, 4) *" << std::endl;
-//		std::cout << ((myQueue1 == myQueue2) ? "true" : "false") << std::endl;
-//		myQueue1.pop();
-//		myQueue1.push(4);
-//		myQueue1.push(6);
-//		std::cout << "* (2, 4) == (2, 4, 6) *" << std::endl;
-//		std::cout << ((myQueue1 == myQueue2) ? "true" : "false") << std::endl;
-//		myQueue1.pop();
-//		myQueue1.pop();
-//		myQueue1.pop();
-//		myQueue2.pop();
-//		myQueue2.pop();
-//		std::cout << std::endl << "-----operator != ------" << std::endl << std::endl;
-//		myQueue1.push(2);
-//		myQueue1.push(4);
-//		myQueue2.push(2);
-//		myQueue2.push(4);
-//		std::cout << "* (2, 4) != (2, 4) *" << std::endl;
-//		std::cout << ((myQueue1 != myQueue2) ? "true" : "false") << std::endl;
-//		myQueue1.pop();
-//		myQueue1.pop();
-//		myQueue1.push(2);
-//		myQueue1.push(5);
-//		std::cout << "* (2, 5) != (2, 4) *" << std::endl;
-//		std::cout << ((myQueue1 != myQueue2) ? "true" : "false") << std::endl;
-//		myQueue1.pop();
-//		myQueue1.pop();
-//		myQueue1.push(2);
-//		myQueue1.push(4);
-//		myQueue1.push(6);
-//		std::cout << "* (2, 4, 6) != (2, 4) *" << std::endl;
-//		std::cout << ((myQueue1 != myQueue2) ? "true" : "false") << std::endl;
-//		myQueue1.pop();
-//		myQueue1.pop();
-//		myQueue1.pop();
-//		myQueue2.pop();
-//		myQueue2.pop();
-//		std::cout << std::endl << "-----operator < -------" << std::endl << std::endl;
-//		myQueue1.push(2);
-//		myQueue1.push(4);
-//		myQueue2.push(2);
-//		myQueue2.push(4);
-//		std::cout << "* (2, 4) < (2, 4) *" << std::endl;
-//		std::cout << ((myQueue1 < myQueue2) ? "true" : "false") << std::endl;
-//		myQueue1.pop();
-//		myQueue1.pop();
-//		myQueue2.pop();
-//		myQueue2.pop();
-//		myQueue1.push(2);
-//		myQueue1.push(4);
-//		myQueue2.push(2);
-//		myQueue2.push(4);
-//		myQueue2.push(5);
-//		std::cout << "* (2, 4) < (2, 4, 5) *" << std::endl;
-//		std::cout << ((myQueue1 < myQueue2) ? "true" : "false") << std::endl;
-//		myQueue1.pop();
-//		myQueue1.pop();
-//		myQueue2.pop();
-//		myQueue2.pop();
-//		myQueue2.pop();
-//		myQueue1.push(2);
-//		myQueue1.push(4);
-//		myQueue1.push(5);
-//		myQueue2.push(2);
-//		myQueue2.push(4);
-//		std::cout << "* (2, 4, 5) < (2, 4) *" << std::endl;
-//		std::cout << ((myQueue1 < myQueue2) ? "true" : "false") << std::endl;
-//		myQueue1.pop();
-//		myQueue1.pop();
-//		myQueue1.pop();
-//		myQueue2.pop();
-//		myQueue2.pop();
-//		std::cout << std::endl << "-----operator <= ------" << std::endl << std::endl;
-//		myQueue1.push(2);
-//		myQueue1.push(4);
-//		myQueue2.push(2);
-//		myQueue2.push(4);
-//		std::cout << "* (2, 4) <= (2, 4) *" << std::endl;
-//		std::cout << ((myQueue1 <= myQueue2) ? "true" : "false") << std::endl;
-//		myQueue1.push(4);
-//		std::cout << "* (2, 4, 4) <= (2, 4) *" << std::endl;
-//		std::cout << ((myQueue1 <= myQueue2) ? "true" : "false") << std::endl;
-//		myQueue1.pop();
-//		myQueue1.pop();
-//		myQueue1.pop();
-//		myQueue2.pop();
-//		myQueue2.pop();
-//		std::cout << std::endl << "-----operator > -------" << std::endl << std::endl;
-//		myQueue1.push(2);
-//		myQueue1.push(4);
-//		myQueue2.push(2);
-//		myQueue2.push(4);
-//		std::cout << "* (2, 4) > (2, 4) *" << std::endl;
-//		std::cout << ((myQueue1 > myQueue2) ? "true" : "false") << std::endl;
-//		myQueue1.push(4);
-//		std::cout << "* (2, 4, 4) > (2, 4) *" << std::endl;
-//		std::cout << ((myQueue1 > myQueue2) ? "true" : "false") << std::endl;
+//		std::cout << "❌FALSE❌ : expected 4" << ", received ft::list.size()=" << fifth.size() << std::endl;
+//		mistakes++;
 //	}
-//	FIXME: --STACK
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test size Zero list<int> ******************" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.size() == AOrigin.size())
+//		std::cout << "✅ OK\n ft::size()=" << A.size() << std::endl;
+//	else
 //	{
-//		ft::stack<double> myStack;
-//		std::cout << std::endl << "---------empty---------" << std::endl << std::endl;
-//		std::cout << "* empty *" << std::endl;
-//		std::cout << "Container is empty: " << (myStack.empty() ? "true" : "false") << std::endl;
-//		std::cout << "* not empty *" << std::endl;
-//		myStack.push(1.1);
-//		std::cout << "Container is empty: " << (myStack.empty() ? "true" : "false") << std::endl;
-//		std::cout << std::endl << "---------size----------" << std::endl << std::endl;
-//		std::cout << "* size: 1 *" << std::endl;
-//		std::cout << "Container size: " << myStack.size() << std::endl;
-//		myStack.push(2.2);
-//		myStack.push(3.3);
-//		myStack.push(4.4);
-//		std::cout << "* size: 4 *" << std::endl;
-//		std::cout << "Container size: " << myStack.size() << std::endl;
-//		std::cout << "* empty *" << std::endl;
-//		myStack.pop();
-//		myStack.pop();
-//		myStack.pop();
-//		myStack.pop();
-//		std::cout << "Container size: " << myStack.size() << std::endl;
-//		std::cout << std::endl << "-----------top---------" << std::endl << std::endl;
-//		myStack.push(1.1);
-//		myStack.push(2.2);
-//		myStack.push(3.3);
-//		myStack.push(4.4);
-//		std::cout << "top: " << myStack.top() << std::endl;
-//		std::cout << std::endl << "-----operator == ------" << std::endl << std::endl;
-//		ft::queue<int> myStack1;
-//		ft::queue<int> myStack2;
-//		myStack1.push(2);
-//		myStack1.push(4);
-//		myStack2.push(2);
-//		myStack2.push(4);
-//		std::cout << "* (2, 4) == (2, 4) *" << std::endl;
-//		std::cout << ((myStack1 == myStack2) ? "true" : "false") << std::endl;
-//		myStack1.pop();
-//		myStack1.push(5);
-//		std::cout << "* (2, 4, 5) == (2, 4) *" << std::endl;
-//		std::cout << ((myStack1 == myStack2) ? "true" : "false") << std::endl;
-//		myStack1.pop();
-//		myStack1.push(4);
-//		myStack1.push(6);
-//		std::cout << "* (2, 4) == (2, 4, 6) *" << std::endl;
-//		std::cout << ((myStack1 == myStack2) ? "true" : "false") << std::endl;
-//		myStack1.pop();
-//		myStack1.pop();
-//		myStack1.pop();
-//		myStack2.pop();
-//		myStack2.pop();
-//		std::cout << std::endl << "-----operator != ------" << std::endl << std::endl;
-//		myStack1.push(2);
-//		myStack1.push(4);
-//		myStack2.push(2);
-//		myStack2.push(4);
-//		std::cout << "* (2, 4) != (2, 4) *" << std::endl;
-//		std::cout << ((myStack1 != myStack2) ? "true" : "false") << std::endl;
-//		myStack1.pop();
-//		myStack1.pop();
-//		myStack1.push(2);
-//		myStack1.push(5);
-//		std::cout << "* (2, 5) != (2, 4) *" << std::endl;
-//		std::cout << ((myStack1 != myStack2) ? "true" : "false") << std::endl;
-//		myStack1.pop();
-//		myStack1.pop();
-//		myStack1.push(2);
-//		myStack1.push(4);
-//		myStack1.push(6);
-//		std::cout << "* (2, 4, 6) != (2, 4) *" << std::endl;
-//		std::cout << ((myStack1 != myStack2) ? "true" : "false") << std::endl;
-//		myStack1.pop();
-//		myStack1.pop();
-//		myStack1.pop();
-//		myStack2.pop();
-//		myStack2.pop();
-//		std::cout << std::endl << "-----operator < -------" << std::endl << std::endl;
-//		myStack1.push(2);
-//		myStack1.push(4);
-//		myStack2.push(2);
-//		myStack2.push(4);
-//		std::cout << "* (2, 4) < (2, 4) *" << std::endl;
-//		std::cout << ((myStack1 < myStack2) ? "true" : "false") << std::endl;
-//		myStack1.pop();
-//		myStack1.pop();
-//		myStack2.pop();
-//		myStack2.pop();
-//		myStack1.push(2);
-//		myStack1.push(4);
-//		myStack2.push(2);
-//		myStack2.push(4);
-//		myStack2.push(5);
-//		std::cout << "* (2, 4) < (2, 4, 5) *" << std::endl;
-//		std::cout << ((myStack1 < myStack2) ? "true" : "false") << std::endl;
-//		myStack1.pop();
-//		myStack1.pop();
-//		myStack2.pop();
-//		myStack2.pop();
-//		myStack2.pop();
-//		myStack1.push(2);
-//		myStack1.push(4);
-//		myStack1.push(5);
-//		myStack2.push(2);
-//		myStack2.push(4);
-//		std::cout << "* (2, 4, 5) < (2, 4) *" << std::endl;
-//		std::cout << ((myStack1 < myStack2) ? "true" : "false") << std::endl;
-//		myStack1.pop();
-//		myStack1.pop();
-//		myStack1.pop();
-//		myStack2.pop();
-//		myStack2.pop();
-//		std::cout << std::endl << "-----operator <= ------" << std::endl << std::endl;
-//		myStack1.push(2);
-//		myStack1.push(4);
-//		myStack2.push(2);
-//		myStack2.push(4);
-//		std::cout << "* (2, 4) <= (2, 4) *" << std::endl;
-//		std::cout << ((myStack1 <= myStack2) ? "true" : "false") << std::endl;
-//		myStack1.push(4);
-//		std::cout << "* (2, 4, 4) <= (2, 4) *" << std::endl;
-//		std::cout << ((myStack1 <= myStack2) ? "true" : "false") << std::endl;
-//		myStack1.pop();
-//		myStack1.pop();
-//		myStack1.pop();
-//		myStack2.pop();
-//		myStack2.pop();
-//		std::cout << std::endl << "-----operator > -------" << std::endl << std::endl;
-//		myStack1.push(2);
-//		myStack1.push(4);
-//		myStack2.push(2);
-//		myStack2.push(4);
-//		std::cout << "* (2, 4) > (2, 4) *" << std::endl;
-//		std::cout << ((myStack1 > myStack2) ? "true" : "false") << std::endl;
-//		myStack1.push(4);
-//		std::cout << "* (2, 4, 4) > (2, 4) *" << std::endl;
-//		std::cout << ((myStack1 > myStack2) ? "true" : "false") << std::endl;
-//
-//
+//		std::cout << "❌FALSE❌ : expected std::list.size()=" << AOrigin.size() << ", received ft::list.size()=" << A.size() << std::endl;
+//		mistakes++;
 //	}
-	//FIXME: --MAP
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test size Zero list<std::string> ******************" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.size() == BOrigin.size())
+//		std::cout << "✅ OK\n ft::size()=" << B.size() << std::endl;
+//	else
 //	{
-//		ft::map<int, int> myIntMap;
-//		ft::map<int, int>::iterator it;
-//		ft::map<int, int>::iterator ite;
-//
-//
-//		std::cout << std::endl << "-----insert and iterators-------" << std::endl << std::endl;
-//		std::cout << std::endl << "MY <INT, INT> MAP:" << std::endl;
-//		for (int i = 1; i < 19; i++) {
-//			myIntMap.insert(std::pair<int, int>(i, i));
-//		}
-//		it = myIntMap.begin();
-//		ite = myIntMap.end();
-//		std::cout << std::endl << "* iterator++ *" << std::endl << std::endl;
-//		for (; it != ite; ++it) {
-//			std::cout << (it.getData()->color == false ? "red     :" : "black   :") << it->first << " => " << it->second << std::endl;
-//		}
-//		std::cout << std::endl << "* backtracking (iterator--) *" << std::endl << std::endl;
-//		ite = myIntMap.end();
-//		--ite;
-//		it = myIntMap.begin();
-//		for (; ite != it; --ite) {
-//			std::cout << (ite.getData()->color == false ? "red     :" : "black   :") << ite->first << " => " << ite->second << std::endl;
-//		}
-//		std::cout << (ite.getData()->color == false ? "red     :" : "black   :") << ite->first << " => " << ite->second << std::endl;
-//
-//		std::cout << std::endl << "--------revers iterator---------" << std::endl << std::endl;
-//		ft::map<int, int>::reverse_iterator itr = myIntMap.rbegin();
-//		ft::map<int, int>::reverse_iterator iter = myIntMap.rend();
-//		for (; itr != iter; ++itr) {
-//			std::cout << (itr.getData()->color == false ? "red     :" : "black   :") << itr->first << " => " << itr->second << std::endl;
-//		}
-//		std::cout << std::endl;
-//		std::cout << "* backtracking (revers iterator--) *" << std::endl;
-//		itr = myIntMap.rbegin();
-//		iter = myIntMap.rend();
-//		--iter;
-//		for (; itr != iter; --iter) {
-//			std::cout << (iter.getData()->color == false ? "red     :" : "black   :") << iter->first << " => " << iter->second << std::endl;
-//		}
-//		std::cout << (iter.getData()->color == false ? "red     :" : "black   :") << iter->first << " => " << iter->second << std::endl;
-//		std::cout << std::endl;
-//
-//		std::cout << std::endl << "-----------assign----------" << std::endl << std::endl;
-//		std::cout << "* after assign *" << std::endl;
-//		ft::map<int, int> copyIntMap;
-//		copyIntMap = myIntMap;
-//		it = copyIntMap.begin();
-//		ite = copyIntMap.end();
-//		for (; it != ite; ++it) {
-//			std::cout << (it.getData()->color == false ? "red     :" : "black   :") << it->first << " => " << it->second << std::endl;
-//		}
-//		std::cout << std::endl;
-//		std::cout << std::endl << "-----------copy------------" << std::endl << std::endl;
-//		ft::map<int, int> copyIntMap2(myIntMap);
-//		it = copyIntMap2.begin();
-//		ite = copyIntMap2.end();
-//		for (; it != ite; ++it) {
-//			std::cout << (it.getData()->color == false ? "red     :" : "black   :") << it->first << " => " << it->second << std::endl;
-//		}
-//		std::cout << std::endl;
-//
-//		std::cout << std::endl << "----empty/size/clear------" << std::endl << std::endl;
-//		std::cout << "size: " << copyIntMap2.size() << std::endl;
-//		std::cout << "is empty: " << (copyIntMap2.empty() ? "true" : "false") << std::endl;
-//		std::cout << std::endl << "* clear map *" << std::endl;
-//		copyIntMap2.clear();
-//		std::cout << "size: " << copyIntMap2.size() << std::endl;
-//		std::cout << "is empty: " << (copyIntMap2.empty() ? "true" : "false") << std::endl;
-//
-//		std::cout << std::endl << "---------operator[]--------" << std::endl;
-//		ft::map<char, float> myCharFloat;
-//		myCharFloat['a'] = 1.1;
-//		myCharFloat['b'] = 2.2;
-//		myCharFloat['c'] = 3.3;
-//		std::cout << std::endl << "* add 'a' = 1.1 *" << std::endl;
-//		std::cout << "* add 'b' = 2.2 *" << std::endl;
-//		std::cout << "* add 'c' = 3.4 *" << std::endl;
-//		ft::map<char, float>::iterator itcf = myCharFloat.begin();
-//		ft::map<char, float>::iterator itecf = myCharFloat.end();
-//		for (; itcf != itecf; ++itcf) {
-//			std::cout << itcf->first << " => " << itcf->second << std::endl;
-//		}
-//
-//		std::cout << std::endl << "----------erase-----------" << std::endl << std::endl;
-//		myIntMap.erase(6);
-//		myIntMap.erase(7);
-//		myIntMap.erase(8);
-//		myIntMap.erase(10);
-//		myIntMap.erase(18);
-//		myIntMap.erase(3);
-//		myIntMap.erase(4);
-//		std::cout << std::endl << "* erase 6, 7, 8, 10, 18, 3, 4 *" << std::endl;
-//		it = myIntMap.begin();
-//		ite = myIntMap.end();
-//		for (; it != ite; ++it) {
-//			std::cout << it->first << " => " << it->second << std::endl;
-//		}
-//		std::cout << std::endl;
-//		std::cout << std::endl << "-----------swap-----------" << std::endl << std::endl;
-//		ft::map<char, double> s1, s2;
-//		s1.insert(std::pair<char, double>('a', 1.1));
-//		s1.insert(std::pair<char, double>('b', 1.2));
-//		s1.insert(std::pair<char, double>('c', 1.3));
-//		s2.insert(std::pair<char, double>('z', 2.1));
-//		s2.insert(std::pair<char, double>('x', 2.2));
-//		ft::map<char, double>::iterator itcd = s1.begin();
-//		ft::map<char, double>::iterator itecd = s1.end();
-//		std::cout << std::endl << "* befor map 1 *" << std::endl;
-//		for (; itcd != itecd; ++itcd) {
-//			std::cout << itcd->first << " => " << itcd->second << std::endl;
-//		}
-//		itcd = s2.begin();
-//		itecd = s2.end();
-//		std::cout << std::endl << "* befor map 2 *" << std::endl;
-//		for (; itcd != itecd; ++itcd) {
-//			std::cout << itcd->first << " => " << itcd->second << std::endl;
-//		}
-//		s1.swap(s2);
-//		itcd = s1.begin();
-//		itecd = s1.end();
-//		std::cout << std::endl << "* after map 1 *" << std::endl;
-//		for (; itcd != itecd; ++itcd) {
-//			std::cout << itcd->first << " => " << itcd->second << std::endl;
-//		}
-//		itcd = s2.begin();
-//		itecd = s2.end();
-//		std::cout << std::endl << "* after map 2 *" << std::endl;
-//		for (; itcd != itecd; ++itcd) {
-//			std::cout << itcd->first << " => " << itcd->second << std::endl;
-//		}
-//
-//		std::cout << std::endl << "--------find/count---------" << std::endl << std::endl;
-//		std::cout << "* map *" << std::endl;
-//		it = myIntMap.begin();
-//		ite = myIntMap.end();
-//		for (; it != ite; ++it) {
-//			std::cout << it->first << " => " << it->second << std::endl;
-//		}
-//		std::cout << std::endl;
-//		it = myIntMap.find(9);
-//		std::cout << "find 9: " << std::endl;
-//		if (it == myIntMap.end())
-//			std::cout << "not FOUND" << std::endl;
-//		else
-//			std::cout << it->first << " => " << it->second << std::endl;
-//		std::cout << "count: " << myIntMap.count(9) << std::endl;
-//		std::cout << std::endl;
-//		it = myIntMap.find(22);
-//		std::cout << "find 22: " << std::endl;
-//		if (it == myIntMap.end())
-//			std::cout << "not FOUND" << std::endl;
-//		else
-//			std::cout << it->first << " => " << it->second << std::endl;
-//		std::cout << "count: " << myIntMap.count(22) << std::endl;
-//
-//		std::cout << std::endl << "--------lower_bound--------" << std::endl << std::endl;
-//
-//		myIntMap.clear();
-//		std::cout << "* map *" << std::endl;
-//		myIntMap.insert(std::pair<int, int>(10, 10));
-//		myIntMap.insert(std::pair<int, int>(20, 20));
-//		myIntMap.insert(std::pair<int, int>(30, 30));
-//		myIntMap.insert(std::pair<int, int>(40, 40));
-//		myIntMap.insert(std::pair<int, int>(50, 50));
-//		it = myIntMap.begin();
-//		ite = myIntMap.end();
-//		for (; it != ite; ++it) {
-//			std::cout << it->first << " => " << it->second << std::endl;
-//		}
-//		it = myIntMap.lower_bound(25);
-//		std::cout << "(25) my map  : " << it->first << " => " << it->second << std::endl;
-//		std::map<int, int> stdIntMap;
-//		stdIntMap.insert(std::pair<int, int>(10, 10));
-//		stdIntMap.insert(std::pair<int, int>(20, 20));
-//		stdIntMap.insert(std::pair<int, int>(30, 30));
-//		stdIntMap.insert(std::pair<int, int>(40, 40));
-//		stdIntMap.insert(std::pair<int, int>(50, 50));
-//		std::map<int,int>::iterator its = stdIntMap.lower_bound(25);
-//		std::cout << "(25) standart: " << its->first << " => " << its->second << std::endl;
-//		it = myIntMap.lower_bound(20);
-//		std::cout << "(20) my map  : " << it->first << " => " << it->second << std::endl;
-//		its = stdIntMap.lower_bound(20);
-//		std::cout << "(20) standart: " << its->first << " => " << its->second << std::endl;
-//		std::cout << std::endl << "--------upper_bound--------" << std::endl << std::endl;
-//		it = myIntMap.upper_bound(45);
-//		std::cout << "(45) my map  : " << it->first << " => " << it->second << std::endl;
-//		its = stdIntMap.upper_bound(45);
-//		std::cout << "(45) standart: " << its->first << " => " << its->second << std::endl;
-//		it = myIntMap.upper_bound(30);
-//		std::cout << "(30) my map  : " << it->first << " => " << it->second << std::endl;
-//		its = stdIntMap.upper_bound(30);
-//		std::cout << "(30) standart: " << its->first << " => " << its->second << std::endl;
-//		std::cout << std::endl << "--------equal_range--------" << std::endl << std::endl;
-//
-//		std::pair<ft::map<int, int>::iterator, ft::map<int, int>::iterator> ret;
-//		ret = myIntMap.equal_range(30);
-//		std::cout << "(30) lower bound points to: ";
-//		std::cout << ret.first->first << " => " << ret.first->second << '\n';
-//		std::cout << "(30) upper bound points to: ";
-//		std::cout << ret.second->first << " => " << ret.second->second << '\n';
+//		std::cout << "❌FALSE❌ : expected std::list.size()=" << BOrigin.size() << ", received ft::list.size()=" << B.size() << std::endl;
+//		mistakes++;
 //	}
-//	while (1);
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test list(list) Zero list<int> ******************" << std::endl;
+//	ft::list<int> A17(A);
+//	std::list<int> A17Origin(AOrigin);
+//	viewAll(A17);
+//	viewAllOriginal(A17Origin);
+//
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A17.size() == AOrigin.size())
+//		std::cout << "✅ OK\n" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected std::list.size()=" << AOrigin.size() << ", received ft::list.size()=" << A17.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test list(list) Zero list<std::string> ******************" << std::endl;
+//	ft::list<std::string> B17(B);
+//	std::list<std::string> B17Origin(BOrigin);
+//	viewAll(B17);
+//	viewAllOriginal(B17Origin);
+//
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B17.size() == BOrigin.size())
+//		std::cout << "✅ OK\n" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected std::list.size()=" << BOrigin.size() << ", received ft::list.size()=" << B17.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test list(n,val) Zero list<int> ******************" << std::endl;
+//	ft::list<int> A1(10, 42);
+//	std::list<int> A1Origin(10,42);
+//	viewAll(A1);
+//	viewAllOriginal(A1Origin);
+//
+//	if (A1.size() == A1Origin.size())
+//		std::cout << "✅ OK\n" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected std::list.size()=" << A1Origin.size() << ", received ft::list.size()=" << A1.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test list(n,val) Zero list<std::list> ******************" << std::endl;
+//	ft::list<std::string> B1(10, "42lol");
+//	std::list<std::string> B1Origin(10,"42lol");
+//	viewAll(B1);
+//	viewAllOriginal(B1Origin);
+//
+//	if (B1.size() == B1Origin.size())
+//		std::cout << "✅ OK\n" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected std::list.size()=" << B1Origin.size() << ", received ft::list.size()=" << B1.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test list(list) non zero list<int> ******************" << std::endl;
+//	ft::list<int> A177(A1);
+//	std::list<int> A177Origin(A1Origin);
+//	viewAll(A177);
+//	viewAllOriginal(A177Origin);
+//
+//	viewAll(A1);
+//	viewAllOriginal(A1Origin);
+//	if (A177.size() == A1Origin.size())
+//		std::cout << "✅ OK\n" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected std::list.size()=" << A1Origin.size() << ", received ft::list.size()=" << A177.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test list(list) non zero list<std::string> ******************" << std::endl;
+//	ft::list<std::string> B177(B1);
+//	std::list<std::string> B177Origin(B1Origin);
+//	viewAll(B177);
+//	viewAllOriginal(B177Origin);
+//
+//	viewAll(B1);
+//	viewAllOriginal(B1Origin);
+//	if (B177.size() == B1Origin.size())
+//		std::cout << "✅ OK\n" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected std::list.size()=" << B1Origin.size() << ", received ft::list.size()=" << B177.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	value = 99;
+//	std::cout << "****************** Test push_back " << value << " / 1 element list<int> ******************" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	A.push_back(value);
+//	AOrigin.push_back(value);
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.size() == AOrigin.size())
+//		std::cout << "✅ OK\n ft::size()=" << A.size() << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected std::list.size()=" << AOrigin.size() << ", received ft::list.size()=" << A.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	value = 42;
+//	std::cout << "****************** Test push_front " << value << " / 1 element list<int> ******************" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	A.push_front(value);
+//	AOrigin.push_front(value);
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.size() == AOrigin.size())
+//		std::cout << "✅ OK\n ft::size()=" << A.size() << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected std::list.size()=" << AOrigin.size() << ", received ft::list.size()=" << A.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	value = 20;
+//	std::cout << "****************** Test push_front " << value << " / 2 element list<int> ******************" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	A.push_front(value);
+//	AOrigin.push_front(value);
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.size() == AOrigin.size())
+//		std::cout << "✅ OK\n ft::size()=" << A.size() << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected std::list.size()=" << AOrigin.size() << ", received ft::list.size()=" << A.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	value = 30;
+//	std::cout << "****************** Test push_front " << value << " / 3 element list<int> ******************" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	A.push_front(value);
+//	AOrigin.push_front(value);
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.size() == AOrigin.size())
+//		std::cout << "✅ OK\n ft::size()=" << A.size() << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected std::list.size()=" << AOrigin.size() << ", received ft::list.size()=" << A.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	value = 77;
+//	std::cout << "****************** Test push_back " << value << " / 4 element list<int> ******************" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	A.push_back(value);
+//	AOrigin.push_back(value);
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.size() == AOrigin.size())
+//		std::cout << "✅ OK\n ft::size()=" << A.size() << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected std::list.size()=" << AOrigin.size() << ", received ft::list.size()=" << A.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	valueStr = "Hello word";
+//	std::cout << "****************** Test push_front " << valueStr << " / 1 element list<std::string> ******************" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	B.push_front(valueStr);
+//	BOrigin.push_front(valueStr);
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.size() == BOrigin.size())
+//		std::cout << "✅ OK\n ft::list.size()=" << B.size() << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected std::list.size()=" << BOrigin.size() << ", received ft::list.size()=" << B.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	valueStr = "Friend";
+//	std::cout << "****************** Test push_back " << valueStr << " / 2 element list<std::string> ******************" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	B.push_back(valueStr);
+//	BOrigin.push_back(valueStr);
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.size() == BOrigin.size())
+//		std::cout << "✅ OK\n ft::list.size()=" << B.size() << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected std::list.size()=" << BOrigin.size() << ", received ft::list.size()=" << B.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	valueStr = "Another 321 Another";
+//	std::cout << "****************** Test push_back " << valueStr << " / 3 element list<std::string> ******************" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	B.push_back(valueStr);
+//	BOrigin.push_back(valueStr);
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.size() == BOrigin.size())
+//		std::cout << "✅ OK\n ft::list.size()=" << B.size() << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected std::list.size()=" << BOrigin.size() << ", received ft::list.size()=" << B.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test iterator list<int> ******************" << std::endl;
+//	std::cout << " ft::list<int>: ";
+//	for (ft::list<int>::iterator it=A.begin(); it != A.end(); ++it)
+//	{
+//		std::cout << ' ' << *it;
+//		k++;
+//	}
+//	std::cout << "\nstd::list<int>: ";
+//	for (std::list<int>::iterator itOriginal=AOrigin.begin(); itOriginal != AOrigin.end(); ++itOriginal)
+//		std::cout << ' ' << *itOriginal;
+//	std::cout << std::endl;
+//	if (k == A.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << A.size() << ", received " << k << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test iterator < begin list<int> ******************" << std::endl;
+//	ft::list<int>::iterator it1=A.begin();
+//	std::list<int>::iterator it3=AOrigin.begin();
+//	std::cout << " ft::list<int>: ";
+//	++it1;
+//	std::cout << *it1;
+//	--it1;
+//	std::cout << ' ' << *it1;
+//	--it1;
+//	std::cout << ' ' << *it1;
+//	++it1;
+//	std::cout << ' ' << *it1 << std::endl;
+//	std::cout << "std::list<int>: ";
+//	++it3;
+//	std::cout << *it3;
+//	--it3;
+//	std::cout << ' ' << *it3;
+//	--it3;
+//	std::cout << ' ' << *it3 ;
+//	++it3;
+//	std::cout << ' ' << *it3 << std::endl;
+//	if (it1 == A.begin())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << *A.begin() << ", received " << *it1 << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test iterator > end list<int> ******************" << std::endl;
+//	ft::list<int>::iterator it2=A.end();
+//	std::list<int>::iterator it4=AOrigin.end();
+//	std::cout << " ft::list<int>: ";
+//	--it2;
+//	std::cout << *it2;
+//	++it2;
+//	std::cout << ' ' << *it2;
+//	++it2;
+//	std::cout << ' ' << *it2;
+//	--it2;
+//	std::cout << ' ' << *it2 << std::endl;
+//	std::cout << "std::list<int>: ";
+//	--it4;
+//	std::cout << *it4;
+//	++it4;
+//	std::cout << ' ' << *it4;
+//	++it4;
+//	std::cout << ' ' << *it4 ;
+//	--it4;
+//	std::cout << ' ' << *it4 << std::endl;
+//	if (it2 == A.end())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << *A.end() << ", received " << *it2 << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test reverse_iterator list<int> ******************" << std::endl;
+//	std::cout << " ft::list<int>: ";
+//	k = 0;
+//	for (ft::list<int>::reverse_iterator it=A.rbegin(); it != A.rend(); ++it)
+//	{
+//		std::cout << ' ' << *it;
+//		k++;
+//	}
+//	std::cout << "\nstd::list<int>: ";
+//	for (std::list<int>::reverse_iterator itOriginal=AOrigin.rbegin(); itOriginal != AOrigin.rend(); ++itOriginal)
+//		std::cout << ' ' << *itOriginal;
+//	std::cout << std::endl;
+//	if (k == A.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << A.size() << ", received " << k << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test reverse_iterator < begin list<int> ******************" << std::endl;
+//	ft::list<int>::reverse_iterator it5=A.rbegin();
+//	std::list<int>::reverse_iterator it6 = AOrigin.rbegin();
+//	std::cout << " ft::list<int>: ";
+//	++it5;
+//	std::cout << *it5;
+//	--it5;
+//	std::cout << ' ' << *it5;
+//	--it5;
+//	std::cout << ' ' << *it5;
+//	++it5;
+//	std::cout << ' ' << *it5 << std::endl;
+//	std::cout << "std::list<int>: ";
+//	++it6;
+//	std::cout << *it6;
+//	--it6;
+//	std::cout << ' ' << *it6;
+//	--it6;
+//	std::cout << ' ' << *it6 ;
+//	++it6;
+//	std::cout << ' ' << *it6 << std::endl;
+//	if (it5 == A.rbegin())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << *(A.rbegin()) << ", received " << *it5 << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test reverse_iterator > end list<int> ******************" << std::endl;
+//	ft::list<int>::reverse_iterator it7=A.rend();
+//	std::list<int>::reverse_iterator it9 = AOrigin.rend();
+//	std::cout << " ft::list<int>: ";
+//	--it7;
+//	std::cout << *it7;
+//	++it7;
+//	std::cout << ' ' << *it7;
+//	++it7;
+//	std::cout << ' ' << *it7;
+//	--it7;
+//	std::cout << ' ' << *it7 << std::endl;
+//	std::cout << "std::list<int>: ";
+//	--it9;
+//	std::cout << *it9;
+//	++it9;
+//	std::cout << ' ' << *it9;
+//	++it9;
+//	std::cout << ' ' << *it9;
+//	--it9;
+//	std::cout << ' ' << *it9 << std::endl;
+//	if (it7 == A.rend())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << *(A.rend()) << ", received " << *it7 << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test empty list<int> ******************" << std::endl;
+//	ft::list<int> AEmpty;
+//	std::list<int> AEmptyOrigin;
+//	std::cout << " ft::list<int>: " << AEmpty.empty() << std::endl;
+//	std::cout << "std::list<int>: " << AEmptyOrigin.empty() << std::endl;
+//	if (AEmpty.empty() == AEmptyOrigin.empty())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << AEmptyOrigin.empty() << ", received " << AEmpty.empty() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test not empty list<int> ******************" << std::endl;
+//	std::cout << " ft::list<int>: " << A.empty() << std::endl;
+//	std::cout << "std::list<int>: " << AOrigin.empty() << std::endl;
+//	if (A.empty() == AOrigin.empty())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << AOrigin.empty() << ", received " << A.empty() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test empty list<std::string> ******************" << std::endl;
+//	ft::list<std::string> BEmpty;
+//	std::list<std::string> BEmptyOrigin;
+//	std::cout << " ft::list<std::string>: " << BEmpty.empty() << std::endl;
+//	std::cout << "std::list<std::string>: " << BEmptyOrigin.empty() << std::endl;
+//	if (BEmpty.empty() == BEmptyOrigin.empty())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << BEmptyOrigin.empty() << ", received " << BEmpty.empty() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test not empty list<std::string> ******************" << std::endl;
+//	std::cout << " ft::list<std::string>: " << B.empty() << std::endl;
+//	std::cout << "std::list<std::string>: " << BOrigin.empty() << std::endl;
+//	if (B.empty() == BOrigin.empty())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << BOrigin.empty() << ", received " << B.empty() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test max_size list<int> ******************" << std::endl;
+//
+//	std::cout << " ft::list<int>: " << A.max_size() << std::endl;
+//	std::cout << "std::list<int>: " << AOrigin.max_size() << std::endl;
+//	if (A.max_size() == AOrigin.max_size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << AOrigin.max_size() << ", received " << A.max_size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test max_size list<std::string> ******************" << std::endl;
+//
+//	std::cout << " ft::list<std::string>: " << B.max_size() << std::endl;
+//	std::cout << "std::list<std::string>: " << BOrigin.max_size() << std::endl;
+//	if (B.max_size() == BOrigin.max_size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << BOrigin.max_size() << ", received " << B.max_size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test front empty list<int> ******************" << std::endl;
+//
+//	std::cout << " ft::list<int>: " << AEmpty.front() << std::endl;
+//	std::cout << "std::list<int>: " << AEmptyOrigin.front() << std::endl;
+//	if (AEmpty.front() == AEmptyOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << AEmptyOrigin.front() << ", received " << AEmpty.front() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test front not empty list<int> ******************" << std::endl;
+//
+//	std::cout << " ft::list<int>: " << A.front() << std::endl;
+//	std::cout << "std::list<int>: " << AOrigin.front() << std::endl;
+//	if (A.front() == AOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << AOrigin.front() << ", received " << A.front() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test back not empty list<int> ******************" << std::endl;
+//
+//	std::cout << " ft::list<int>: " << A.back() << std::endl;
+//	std::cout << "std::list<int>: " << AOrigin.back() << std::endl;
+//	if (A.back() == AOrigin.back())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << AOrigin.back() << ", received " << A.back() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test front empty list<std::string> ******************" << std::endl;
+//
+//	std::cout << " ft::list<std::string>: " << BEmpty.front() << std::endl;
+//	std::cout << "std::list<std::string>: " << BEmptyOrigin.front() << std::endl;
+//	if (BEmpty.front() == BEmptyOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << BEmptyOrigin.front() << ", received " << BEmpty.front() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test front not empty list<std::string> ******************" << std::endl;
+//
+//	std::cout << " ft::list<std::string>: " << B.front() << std::endl;
+//	std::cout << "std::list<std::string>: " << BOrigin.front() << std::endl;
+//	if (B.front() == BOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << BOrigin.front() << ", received " << B.front() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test back not empty list<std::string> ******************" << std::endl;
+//
+//	std::cout << " ft::list<std::string>: " << B.back() << std::endl;
+//	std::cout << "std::list<std::string>: " << BOrigin.back() << std::endl;
+//	if (B.back() == BOrigin.back())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << BOrigin.back() << ", received " << B.back() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test pop_front not empty list<int> ******************" << std::endl;
+//	A.pop_front();
+//	AOrigin.pop_front();
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.size() == AOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << AOrigin.size() << ", received " << A.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl; // todo Поправил тест, работает не так?
+//	std::cout << "****************** Test pop_front not empty list<std::string> ******************" << std::endl;
+//	ft::list<std::string>::iterator it999 = B.begin();
+//	std::list<std::string>::iterator it99 = BOrigin.begin();
+//	std::cout << *it999 << std::endl;
+//	std::cout << *it99 << std::endl;
+//	++it999;
+//	++it99;
+//	B.pop_front();
+//	BOrigin.pop_front();
+//	std::cout << *(it999) << std::endl;
+//	std::cout << *(it99) << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.size() == BOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << BOrigin.size() << ", received " << B.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test pop_front empty list<int> ******************" << std::endl;
+//	//AEmpty.pop_front();
+//	//AEmptyOrigin.pop_front(); //Original get segfault
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//	if (AEmpty.size() == AEmptyOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << AEmptyOrigin.size() << ", received " << AEmpty.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test pop_front empty list<std::string> ******************" << std::endl;
+//	//BEmpty.pop_front();
+//	//BEmptyOrigin.pop_front(); //Original get segfault
+//	viewAll(BEmpty);
+//	viewAllOriginal(BEmptyOrigin);
+//	if (BEmpty.size() == BEmptyOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << BEmptyOrigin.size() << ", received " << BEmpty.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test pop_back not empty list<int> ******************" << std::endl;
+//	A.pop_back();
+//	AOrigin.pop_back();
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.size() == AOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << AOrigin.size() << ", received " << A.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl; //todo Поправил тест работает не правильно?
+//	std::cout << "****************** Test pop_back not empty list<std::string> ******************" << std::endl;
+//	it999 = B.end();
+//	it99 = BOrigin.end();
+//	std::cout << *(--it999) << std::endl;
+//	std::cout << *(--it99) << std::endl;
+//	--it999;
+//	--it99;
+//	B.pop_back();
+//	BOrigin.pop_back();
+//	std::cout << *(it999) << std::endl;
+//	std::cout << *(it99) << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.size() == BOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << BOrigin.size() << ", received " << B.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test pop_back empty list<int> ******************" << std::endl;
+//	AEmpty.pop_back();
+//	//AEmptyOrigin.pop_back(); //Original get segfault
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//	if (AEmpty.size() == AEmptyOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << AEmptyOrigin.size() << ", received " << AEmpty.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test erace(it) not empty list<std::string> ******************" << std::endl;
+//	B.push_front("New life");
+//	BOrigin.push_front("New life");
+//	it999 = B.begin();
+//	it99 = BOrigin.begin();
+//	std::cout << *(B.erase(it999)) << std::endl;
+//	std::cout << *(BOrigin.erase(it99)) << std::endl; //segfault if it99=end
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.size() == BOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << BOrigin.size() << ", received " << B.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test erace(it) empty list<std::string> ******************" << std::endl;
+//	it999 = BEmpty.begin();
+//	it99 = BEmptyOrigin.begin();
+//	//std::cout << *(BEmpty.erase(it999)) << std::endl;
+//	//std::cout << *(BEmptyOrigin.erase(it99)) << std::endl; //Original get segfault
+//	viewAll(BEmpty);
+//	viewAllOriginal(BEmptyOrigin);
+//	if (BEmpty.size() == BEmptyOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << BEmptyOrigin.size() << ", received " << BEmpty.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test erace(it) not empty list<int> ******************" << std::endl;
+//	ft::list<int>::iterator it999A = A.begin();
+//	std::list<int>::iterator it99A = AOrigin.begin();
+//	A.push_front(123);
+//	AOrigin.push_front(123);
+//	it999A = A.begin();
+//	it99A = AOrigin.begin();
+//	std::cout << *(A.erase(it999A)) << std::endl;
+//	std::cout << *(AOrigin.erase(it99A)) << std::endl; //segfault if it99=end
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.size() == AOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << AOrigin.size() << ", received " << A.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test erace(it) empty list<int> ******************" << std::endl;
+//	it999A = AEmpty.begin();
+//	it99A = AEmptyOrigin.begin();
+//	//std::cout << *(AEmpty.erase(it999A)) << std::endl;
+//	//std::cout << *(BEmptyOrigin.erase(it99)) << std::endl; //Original get segfault
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//	if (AEmpty.size() == AEmptyOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << AEmptyOrigin.size() << ", received " << AEmpty.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test erace(it1,it2) not empty it1/it2 good list<int> ******************" << std::endl;
+//	A.push_front(123);
+//	AOrigin.push_front(123);
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	it999A = A.begin();
+//	it99A = AOrigin.begin();
+//	std::cout << *(A.erase(it999A,++++it999A)) << std::endl;
+//	std::cout << *(AOrigin.erase(it99A,++++it99A)) << std::endl; //segfault if it99=end
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.size() == AOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << AOrigin.size() << ", received " << A.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test erace(it1,it2) not empty it1 good/ it2 bad list<int> ******************" << std::endl;
+//	int sizeTest;
+//	ft::list<int> AWrong;
+//	std::list<int> AOriginalWrong;
+//	viewAll(A);
+//	it999A = A.begin();
+//	sizeTest = A.size();
+//	ft::list<int>::iterator it999AE = A.end();
+//	++it999A;
+//	//std::cout << *(A.erase(it999A,AWrong.end())) << std::endl;
+//	//std::cout << *(AOrigin.erase(it99A,AOriginalWrong.end())) << std::endl; //Original get segfault
+//	viewAll(A);
+////	if (A.size() == sizeTest)
+////		std::cout << "✅ OK" << std::endl;
+////	else
+////	{
+////		std::cout << "❌FALSE❌ : expected " << sizeTest - 1 << ", received " << A.size() << std::endl;
+////		mistakes++;
+////	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test erace(it1,it2) not empty it1 bad/ it2 good list<int> ******************" << std::endl;
+//	viewAll(A);
+//	sizeTest = A.size();
+//	it999AE = A.end();
+//	//std::cout << *(A.erase(AWrong.end(),it999AE)) << std::endl;
+//	//std::cout << *(AOrigin.erase(it99A,AOriginalWrong.end())) << std::endl; //Original get segfault
+//	viewAll(A);
+//	if (A.size() == sizeTest)
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << sizeTest - 1 << ", received " << A.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test erace(it1,it2) not empty it1/it2 good list<std::string> ******************" << std::endl;
+//	B.push_front("new test");
+//	BOrigin.push_front("new test");
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	it999 = B.begin();
+//	it99 = BOrigin.begin();
+//	std::cout << *(B.erase(it999,++++it999)) << std::endl;
+//	std::cout << *(BOrigin.erase(it99,++++it99)) << std::endl; //segfault if it99=end
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.size() == BOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << BOrigin.size() << ", received " << B.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test erace(it1,it2) not empty it1 good/ it2 bad list<std::string> ******************" << std::endl;
+//	B.push_front("new test");
+//	BOrigin.push_front("new test");
+//	ft::list<std::string> BWrong;
+//	std::list<std::string> BOriginalWrong;
+//	viewAll(B);
+//	it999 = B.begin();
+//	it99 = BOrigin.begin();
+//	sizeTest = B.size();
+//	ft::list<std::string>::iterator it999BE = B.end();
+//	++it999;
+//	//std::cout << *(B.erase(it999,BWrong.end())) << std::endl;
+//	//std::cout << *(BOrigin.erase(it99,BOriginalWrong.end())) << std::endl; //Original get segfault
+//	viewAll(B);
+//	if (B.size() == sizeTest)
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << sizeTest - 1 << ", received " << B.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test erace(it1,it2) not empty it1 bad/ it2 good list<std::string> ******************" << std::endl;
+//	viewAll(B);
+//	//viewAllOriginal(BOrigin);
+//	sizeTest = B.size();
+//	it999BE = B.end();
+//	//std::cout << *(B.erase(BWrong.end(),it999BE)) << std::endl;
+//	//std::cout << *(BOrigin.begin(),BOrigin.begin()) << std::endl; //Original get segfault
+//	viewAll(B);
+//	//viewAllOriginal(BOrigin);
+//	if (B.size() == sizeTest)
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << sizeTest - 1 << ", received " << B.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test clear not empty list<std::string> ******************" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//
+//	B.clear();
+//	BOrigin.clear();
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.size() == 0)
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected 0, received " << B.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test clear empty list<std::string> ******************" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//
+//	B.clear();
+//	BOrigin.clear();
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.size() == 0)
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected 0, received " << B.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test erace(it1,it2) not empty it==it2 good list<std::string> ******************" << std::endl;
+//	B.push_front("new test");
+//	B.push_front("qwerty");
+//	B.push_front("йцукен");
+//	BOrigin.push_front("new test");
+//	BOrigin.push_front("qwerty");
+//	BOrigin.push_front("йцукен");
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	sizeTest = B.size();
+//	std::cout << *(B.erase(B.begin(),B.begin())) << std::endl;
+//	std::cout << *(BOrigin.erase(BOrigin.begin(),BOrigin.begin())) << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.size() == sizeTest)
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected " << sizeTest - 1 << ", received " << B.size() << std::endl;
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test swap not empty list<std::string> ******************" << std::endl;
+//	ft::list<std::string> B2;
+//	std::list<std::string> BOrigin2;
+//	B.push_front("это просто");
+//	B.push_front("ооооо");
+//	B.push_front("ой");
+//	B2.push_front("это сложно");
+//	B2.push_front("яяяяя");
+//	B2.push_front("ай");
+//	B2.push_front("ай1");
+//	B2.push_front("ай2");
+//	BOrigin.push_front("это просто");
+//	BOrigin.push_front("ооооо");
+//	BOrigin.push_front("ой");
+//	BOrigin2.push_front("это сложно");
+//	BOrigin2.push_front("яяяяя");
+//	BOrigin2.push_front("ай");
+//	BOrigin2.push_front("ай1");
+//	BOrigin2.push_front("ай2");
+//	viewAll(B);
+//	viewAll(B2);
+//	viewAllOriginal(BOrigin);
+//	viewAllOriginal(BOrigin2);
+//
+//	B.swap(B2);
+//	BOrigin.swap(BOrigin2);
+//	std::cout << "*Swap*" << std::endl;
+//	viewAll(B);
+//	viewAll(B2);
+//	viewAllOriginal(BOrigin);
+//	viewAllOriginal(BOrigin2);
+//	if (B.front() == BOrigin.front() && B2.front() == BOrigin2.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BOrigin);
+//		std::cout << "received ";
+//		viewAll(B);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test swap list<std::string> // ******************" << std::endl;
+////	B.pop_front();
+////	B.pop_front();
+////	B.pop_front();
+////	B.pop_front();
+////	B.pop_front();
+////	B.pop_front();
+////	B.pop_front();
+////	B2.pop_front();
+////	B2.pop_front();
+////	B2.pop_front();
+////	B2.pop_front();
+////	B2.pop_front();
+////	B2.pop_front();
+////	B2.pop_front();
+////	BOrigin.pop_front();
+////	BOrigin.pop_front();
+////	BOrigin.pop_front();
+////	BOrigin.pop_front();
+////	BOrigin.pop_front();
+////	BOrigin2.pop_front();
+////	BOrigin2.pop_front();
+////	BOrigin2.pop_front();
+////	BOrigin2.pop_front();
+////	BOrigin2.pop_front();
+////	BOrigin2.pop_front();
+//	viewAll(B);
+//	viewAll(B2);
+//	viewAllOriginal(BOrigin);
+//	viewAllOriginal(BOrigin2);
+//
+//	B.swap(B2);
+//	BOrigin.swap(BOrigin2);
+//	std::cout << "*Swap*" << std::endl;
+//	viewAll(B);
+//	viewAll(B2);
+//	viewAllOriginal(BOrigin);
+//	viewAllOriginal(BOrigin2);
+//	if (BOrigin.back() == B.back())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BOrigin);
+//		std::cout << "received ";
+//		viewAll(B);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test swap empty list<int> ******************" << std::endl;
+//	ft::list<int> A2;
+//	std::list<int> AOrigin2;
+//	A.pop_front();
+//	A.pop_front();
+//	viewAll(A);
+//	viewAll(A2);
+//	AOrigin.pop_front();
+//	AOrigin.pop_front();
+//	viewAllOriginal(AOrigin);
+//	viewAllOriginal(AOrigin2);
+//
+//	A.swap(A2);
+//	AOrigin.swap(AOrigin2);
+//	std::cout << "*Swap*" << std::endl;
+//	viewAll(A);
+//	viewAll(A2);
+//	viewAllOriginal(AOrigin);
+//	viewAllOriginal(AOrigin2);
+//	if (A.back() == A2.back())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAll(A2);
+//		std::cout << "received ";
+//		viewAll(A);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test swap empty and not list<int> ******************" << std::endl;
+//	A.pop_front();
+//	viewAll(A);
+//	A2.push_front(44);
+//	viewAll(A2);
+//	viewAllOriginal(AOrigin);
+//	AOrigin2.push_front(44);
+//	viewAllOriginal(AOrigin2);
+//
+//	A.swap(A2);
+//	AOrigin.swap(AOrigin2);
+//	std::cout << "*Swap*" << std::endl;
+//	viewAll(A);
+//	viewAll(A2);
+//	viewAllOriginal(AOrigin);
+//	viewAllOriginal(AOrigin2);
+//	if (A.back() == AOrigin.back())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AOrigin);
+//		std::cout << "received ";
+//		viewAll(A);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test swap not empty list<int> ******************" << std::endl;
+//	A.push_front(23);
+//	A.push_front(34);
+//	A.push_front(45);
+//	A2.push_front(67);
+//	A2.push_front(98);
+//	A2.push_front(87);
+//	A2.push_front(76);
+//	A2.push_front(21);
+//	AOrigin.push_front(23);
+//	AOrigin.push_front(34);
+//	AOrigin.push_front(45);
+//	AOrigin2.push_front(67);
+//	AOrigin2.push_front(98);
+//	AOrigin2.push_front(87);
+//	AOrigin2.push_front(76);
+//	AOrigin2.push_front(21);
+//	viewAll(A);
+//	viewAll(A2);
+//	viewAllOriginal(AOrigin);
+//	viewAllOriginal(AOrigin2);
+//
+//	A.swap(A2);
+//	AOrigin.swap(AOrigin2);
+//	std::cout << "*Swap*" << std::endl;
+//	viewAll(A);
+//	viewAll(A2);
+//	viewAllOriginal(AOrigin);
+//	viewAllOriginal(AOrigin2);
+//	if (A.front() == AOrigin.front() && A2.front() == AOrigin2.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AOrigin);
+//		std::cout << "received ";
+//		viewAll(A);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test resize not empty n > size value=666 list<int> ******************" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//
+//	A.resize(10, 666);
+//	AOrigin.resize(10,666);
+//	std::cout << "*Resize*" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.back() == AOrigin.back() && A.size() == AOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AOrigin);
+//		std::cout << "received ";
+//		viewAll(A);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test resize not empty n = size value=666 list<int> ******************" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//
+//	A.resize(10, 666);
+//	AOrigin.resize(10,666);
+//	std::cout << "*Resize*" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.back() == AOrigin.back() && A.size() == AOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AOrigin);
+//		std::cout << "received ";
+//		viewAll(A);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test resize not empty n < size value=666 list<int> ******************" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//
+//	A.resize(4, 666);
+//	AOrigin.resize(4,666);
+//	std::cout << "*Resize*" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.back() == AOrigin.back() && A.size() == AOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AOrigin);
+//		std::cout << "received ";
+//		viewAll(A);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test resize not empty n > size value "" list<int> ******************" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//
+//	A.resize(10);
+//	AOrigin.resize(10);
+//	std::cout << "*Resize*" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.back() == AOrigin.back() && A.size() == AOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AOrigin);
+//		std::cout << "received ";
+//		viewAll(A);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test resize empty n > size value=42 list<int> ******************" << std::endl;
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//
+//	AEmpty.resize(10,42);
+//	AEmptyOrigin.resize(10,42);
+//	std::cout << "*Resize*" << std::endl;
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//	if (AEmpty.back() == AEmptyOrigin.back() && AEmpty.size() == AEmptyOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AEmptyOrigin);
+//		std::cout << "received ";
+//		viewAll(AEmpty);
+//
+//		mistakes++;
+//	}
+//	AEmpty.clear();
+//	AEmptyOrigin.clear();
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test resize not empty n > size value=\"ooouuuu foooo\" list<std::string> ******************" << std::endl;
+//	B.push_front("new test");
+//	BOrigin.push_front("new test");
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//
+//	B.resize(10, "ooouuuu foooo");
+//	BOrigin.resize(10,"ooouuuu foooo");
+//	std::cout << "*Resize*" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.back() == BOrigin.back() && B.size() == BOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BOrigin);
+//		std::cout << "received ";
+//		viewAll(B);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test resize not empty n = size value=\"ooouuuu foooo\" list<std::string> ******************" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//
+//	B.resize(10, "ooouuuu foooo");
+//	BOrigin.resize(10,"ooouuuu foooo");
+//	std::cout << "*Resize*" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.back() == BOrigin.back() && B.size() == BOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BOrigin);
+//		std::cout << "received ";
+//		viewAll(B);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test resize not empty n < size value=\"ooouuuu foooo\" list<std::string> ******************" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//
+//	B.resize(4, "ooouuuu foooo");
+//	BOrigin.resize(4,"ooouuuu foooo");
+//	std::cout << "*Resize*" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.back() == BOrigin.back() && B.size() == BOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BOrigin);
+//		std::cout << "received ";
+//		viewAll(B);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test resize not empty n > size value= list<std::string> ******************" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//
+//	B.resize(10);
+//	BOrigin.resize(10);
+//	std::cout << "*Resize*" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.back() == BOrigin.back() && B.size() == BOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BOrigin);
+//		std::cout << "received ";
+//		viewAll(B);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test resize empty n > size value=\"42old\" list<std::string> ******************" << std::endl;
+//	viewAll(BEmpty);
+//	viewAllOriginal(BEmptyOrigin);
+//
+//	BEmpty.resize(10,"42old");
+//	BEmptyOrigin.resize(10,"42old");
+//	std::cout << "*Resize*" << std::endl;
+//	viewAll(BEmpty);
+//	viewAllOriginal(BEmptyOrigin);
+//	if (BEmpty.back() == BEmptyOrigin.back() && BEmpty.size() == BEmptyOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BEmptyOrigin);
+//		std::cout << "received ";
+//		viewAll(BEmpty);
+//
+//		mistakes++;
+//	}
+//	AEmpty.clear();
+//	AEmptyOrigin.clear();
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test remove 34 not empty list have 34 list<int> ******************" << std::endl;
+//	A.push_front(23);
+//	A.push_front(34);
+//	A.push_front(45);
+//	A.push_front(23);
+//	A.push_front(34);
+//	A.push_front(45);
+//	A.push_front(23);
+//	A.push_front(34);
+//	A.push_front(45);
+//	AOrigin.push_front(23);
+//	AOrigin.push_front(34);
+//	AOrigin.push_front(45);
+//	AOrigin.push_front(23);
+//	AOrigin.push_front(34);
+//	AOrigin.push_front(45);
+//	AOrigin.push_front(23);
+//	AOrigin.push_front(34);
+//	AOrigin.push_front(45);
+//
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//
+//	A.remove(34);
+//	AOrigin.remove(34);
+//	std::cout << "*Remove*" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.front() == AOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AOrigin);
+//		std::cout << "received ";
+//		viewAll(A);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test remove 34 not empty list not have 34 list<int> ******************" << std::endl;
+//
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//
+//	A.remove(34);
+//	AOrigin.remove(34);
+//	std::cout << "*Remove*" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.front() == AOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AOrigin);
+//		std::cout << "received ";
+//		viewAll(A);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test remove 34 empty list<int> ******************" << std::endl;
+//
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//
+//	AEmpty.remove(34);
+//	AEmptyOrigin.remove(34);
+//	std::cout << "*Remove*" << std::endl;
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//	if (AEmpty.front() == AEmptyOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AEmptyOrigin);
+//		std::cout << "received ";
+//		viewAll(AEmpty);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test remove 34 not empty list have 34 list<std::string> ******************" << std::endl;
+//	B.push_front("23");
+//	B.push_front("34");
+//	B.push_front("45");
+//	B.push_front("23");
+//	B.push_front("34");
+//	B.push_front("45");
+//	B.push_front("23");
+//	B.push_front("34");
+//	B.push_front("45");
+//	BOrigin.push_front("23");
+//	BOrigin.push_front("34");
+//	BOrigin.push_front("45");
+//	BOrigin.push_front("23");
+//	BOrigin.push_front("34");
+//	BOrigin.push_front("45");
+//	BOrigin.push_front("23");
+//	BOrigin.push_front("34");
+//	BOrigin.push_front("45");
+//
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//
+//	B.remove("34");
+//	BOrigin.remove("34");
+//	std::cout << "*Remove*" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.front() == BOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BOrigin);
+//		std::cout << "received ";
+//		viewAll(B);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test remove 34 not empty list not have 34 list<std::string> ******************" << std::endl;
+//
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//
+//	B.remove("34");
+//	BOrigin.remove("34");
+//	std::cout << "*Remove*" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.front() == BOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BOrigin);
+//		std::cout << "received ";
+//		viewAll(B);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test remove 34 empty list<std::string> ******************" << std::endl;
+//	BEmpty.clear();
+//	BEmptyOrigin.clear();
+//	viewAll(BEmpty);
+//	viewAllOriginal(BEmptyOrigin);
+//
+//	BEmpty.remove("34");
+//	BEmptyOrigin.remove("34");
+//	std::cout << "*Remove*" << std::endl;
+//	viewAll(BEmpty);
+//	viewAllOriginal(BEmptyOrigin);
+//	if (BEmpty.size() == BEmptyOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BEmptyOrigin);
+//		std::cout << "received ";
+//		viewAll(BEmpty);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test remove_if single_digit not empty list<int> ******************" << std::endl;
+//	A.push_front(2);
+//	A.push_front(3400);
+//	A.push_front(400);
+//	A.push_front(230);
+//	A.push_front(3);
+//	A.push_front(450);
+//	A.push_front(23);
+//	A.push_front(34);
+//	A.push_front(4);
+//	AOrigin.push_front(2);
+//	AOrigin.push_front(3400);
+//	AOrigin.push_front(400);
+//	AOrigin.push_front(230);
+//	AOrigin.push_front(3);
+//	AOrigin.push_front(450);
+//	AOrigin.push_front(23);
+//	AOrigin.push_front(34);
+//	AOrigin.push_front(4);
+//
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//
+//	A.remove_if(single_digit);
+//	AOrigin.remove_if(single_digit);
+//	std::cout << "*Remove*" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.front() == AOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AOrigin);
+//		std::cout << "received ";
+//		viewAll(A);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test remove _if single_digit && is_odd() not empty list not have single_digit list<int> ******************" << std::endl;
+//
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//
+//	A.remove_if(single_digit);
+//	A.remove_if(is_odd());
+//	AOrigin.remove_if(single_digit);
+//	AOrigin.remove_if(is_odd());
+//	std::cout << "*Remove*" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.front() == AOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AOrigin);
+//		std::cout << "received ";
+//		viewAll(A);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test remove single_digit empty list<int> ******************" << std::endl;
+//
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//
+//	AEmpty.remove_if(single_digit);
+//	AEmptyOrigin.remove_if(single_digit);
+//	std::cout << "*Remove*" << std::endl;
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//	if (AEmpty.front() == AEmptyOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AEmptyOrigin);
+//		std::cout << "received ";
+//		viewAll(AEmpty);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test remove shot_string(<=3) not empty list have 34 list<std::string> ******************" << std::endl;
+//	B.push_front("23");
+//	B.push_front("347777");
+//	B.push_front("454");
+//	B.push_front("23");
+//	B.push_front("3477");
+//	B.push_front("45");
+//	B.push_front("236");
+//	B.push_front("347777777");
+//	B.push_front("45");
+//	BOrigin.push_front("23");
+//	BOrigin.push_front("347777");
+//	BOrigin.push_front("454");
+//	BOrigin.push_front("23");
+//	BOrigin.push_front("3477");
+//	BOrigin.push_front("45");
+//	BOrigin.push_front("236");
+//	BOrigin.push_front("347777777");
+//	BOrigin.push_front("45");
+//
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//
+//	B.remove_if(shot_string);
+//	BOrigin.remove_if(shot_string);
+//	std::cout << "*Remove*" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.front() == BOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BOrigin);
+//		std::cout << "received ";
+//		viewAll(B);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test remove shot_string(<=3) not empty list not have shot_string list<std::string> ******************" << std::endl;
+//
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//
+//	B.remove_if(shot_string);
+//	BOrigin.remove_if(shot_string);
+//	std::cout << "*Remove*" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.front() == BOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BOrigin);
+//		std::cout << "received ";
+//		viewAll(B);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test remove shot_string(<=3) empty list<std::string> ******************" << std::endl;
+//	BEmpty.clear();
+//	BEmptyOrigin.clear();
+//	viewAll(BEmpty);
+//	viewAllOriginal(BEmptyOrigin);
+//
+//	BEmpty.remove_if(shot_string);
+//	BEmptyOrigin.remove_if(shot_string);
+//	std::cout << "*Remove*" << std::endl;
+//	viewAll(BEmpty);
+//	viewAllOriginal(BEmptyOrigin);
+//	if (BEmpty.size() == BEmptyOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BEmptyOrigin);
+//		std::cout << "received ";
+//		viewAll(BEmpty);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test sort not empty list<int> ******************" << std::endl;
+//
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//
+//	A.sort();
+//	AOrigin.sort();
+//	std::cout << "*Sort*" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.front() == AOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AOrigin);
+//		std::cout << "received ";
+//		viewAll(A);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test sort empty list<int> ******************" << std::endl;
+//
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//
+//	AEmpty.sort();
+//	AEmptyOrigin.sort();
+//	std::cout << "*Sort*" << std::endl;
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//	if (AEmpty.front() == AEmptyOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AEmptyOrigin);
+//		std::cout << "received ";
+//		viewAll(AEmpty);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test sort not empty list<std::string> ******************" << std::endl;
+//
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//
+//	B.sort();
+//	BOrigin.sort();
+//	std::cout << "*Sort*" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.front() == BOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BOrigin);
+//		std::cout << "received ";
+//		viewAll(B);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test sort empty list<std::string> ******************" << std::endl;
+//
+//	viewAll(BEmpty);
+//	viewAllOriginal(BEmptyOrigin);
+//
+//	BEmpty.sort();
+//	BEmptyOrigin.sort();
+//	std::cout << "*Sort*" << std::endl;
+//	viewAll(BEmpty);
+//	viewAllOriginal(BEmptyOrigin);
+//	if (BEmpty.size() == BEmptyOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BEmptyOrigin);
+//		std::cout << "received ";
+//		viewAll(BEmpty);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test sort2 not empty list<int> ******************" << std::endl;
+//
+//	A.push_front(2);
+//	A.push_front(3400);
+//	A.push_front(400);
+//	A.push_front(230);
+//	A.push_front(3);
+//	A.push_front(450);
+//	A.push_front(23);
+//	A.push_front(34);
+//	A.push_front(4);
+//	AOrigin.push_front(2);
+//	AOrigin.push_front(3400);
+//	AOrigin.push_front(400);
+//	AOrigin.push_front(230);
+//	AOrigin.push_front(3);
+//	AOrigin.push_front(450);
+//	AOrigin.push_front(23);
+//	AOrigin.push_front(34);
+//	AOrigin.push_front(4);
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//
+//	A.sort(compare_int);
+//	AOrigin.sort(compare_int);
+//	std::cout << "*Sort*" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.front() == AOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AOrigin);
+//		std::cout << "received ";
+//		viewAll(A);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test sort2 empty list<int> ******************" << std::endl;
+//
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//
+//	AEmpty.sort(compare_int);
+//	AEmptyOrigin.sort(compare_int);
+//	std::cout << "*Sort*" << std::endl;
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//	if (AEmpty.front() == AEmptyOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AEmptyOrigin);
+//		std::cout << "received ";
+//		viewAll(AEmpty);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test sort2 not empty list<std::string> ******************" << std::endl;
+//
+//	B.push_front("Hello");
+//	B.push_front("hello");
+//	B.push_front("qwerty");
+//	B.push_front("ZxZcZ");
+//	B.push_front("lkjhg");
+//	BOrigin.push_front("Hello");
+//	BOrigin.push_front("hello");
+//	BOrigin.push_front("qwerty");
+//	BOrigin.push_front("ZxZcZ");
+//	BOrigin.push_front("lkjhg");
+//
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//
+//	B.sort(compare_nocase);
+//	BOrigin.sort(compare_nocase);
+//	std::cout << "*Sort*" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.front() == BOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BOrigin);
+//		std::cout << "received ";
+//		viewAll(B);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test sort2 empty list<std::string> ******************" << std::endl;
+//
+//	viewAll(BEmpty);
+//	viewAllOriginal(BEmptyOrigin);
+//
+//	BEmpty.sort(compare_nocase);
+//	BEmptyOrigin.sort(compare_nocase);
+//	std::cout << "*Sort*" << std::endl;
+//	viewAll(BEmpty);
+//	viewAllOriginal(BEmptyOrigin);
+//	if (BEmpty.size() == BEmptyOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BEmptyOrigin);
+//		std::cout << "received ";
+//		viewAll(BEmpty);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test reverse not empty list<int> ******************" << std::endl;
+//
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//
+//	A.reverse();
+//	AOrigin.reverse();
+//	std::cout << "*reverse*" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.front() == AOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AOrigin);
+//		std::cout << "received ";
+//		viewAll(A);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test reverse empty list<int> ******************" << std::endl;
+//
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//
+//	AEmpty.reverse();
+//	AEmptyOrigin.reverse();
+//	std::cout << "*reverse*" << std::endl;
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//	if (AEmpty.front() == AEmptyOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AEmptyOrigin);
+//		std::cout << "received ";
+//		viewAll(AEmpty);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test reverse not empty list<std::string> ******************" << std::endl;
+//
+//	B.push_front("Hello");
+//	B.push_front("hello");
+//	B.push_front("qwerty");
+//	B.push_front("ZxZcZ");
+//	B.push_front("lkjhg");
+//	BOrigin.push_front("Hello");
+//	BOrigin.push_front("hello");
+//	BOrigin.push_front("qwerty");
+//	BOrigin.push_front("ZxZcZ");
+//	BOrigin.push_front("lkjhg");
+//
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//
+//	B.reverse();
+//	BOrigin.reverse();
+//	std::cout << "*reverse*" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.front() == BOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BOrigin);
+//		std::cout << "received ";
+//		viewAll(B);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test reverse empty list<std::string> ******************" << std::endl;
+//
+//	viewAll(BEmpty);
+//	viewAllOriginal(BEmptyOrigin);
+//
+//	BEmpty.reverse();
+//	BEmptyOrigin.reverse();
+//	std::cout << "*reverse*" << std::endl;
+//	viewAll(BEmpty);
+//	viewAllOriginal(BEmptyOrigin);
+//	if (BEmpty.size() == BEmptyOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BEmptyOrigin);
+//		std::cout << "received ";
+//		viewAll(BEmpty);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test unique not empty list<int> ******************" << std::endl;
+//
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//
+//	A.unique();
+//	AOrigin.unique();
+//	std::cout << "*unique*" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.front() == AOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AOrigin);
+//		std::cout << "received ";
+//		viewAll(A);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test unique empty list<int> ******************" << std::endl;
+//
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//
+//	AEmpty.unique();
+//	AEmptyOrigin.unique();
+//	std::cout << "*unique*" << std::endl;
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//	if (AEmpty.front() == AEmptyOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AEmptyOrigin);
+//		std::cout << "received ";
+//		viewAll(AEmpty);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test unique not empty list<std::string> ******************" << std::endl;
+//
+//	B.push_front("Hello");
+//	B.push_front("hello");
+//	B.push_front("Hello");
+//	B.push_front("Hello");
+//	B.push_front("lkjhg");
+//	BOrigin.push_front("Hello");
+//	BOrigin.push_front("hello");
+//	BOrigin.push_front("Hello");
+//	BOrigin.push_front("Hello");
+//	BOrigin.push_front("lkjhg");
+//
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//
+//	B.unique();
+//	BOrigin.unique();
+//	std::cout << "*unique*" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.front() == BOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BOrigin);
+//		std::cout << "received ";
+//		viewAll(B);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test unique empty list<std::string> ******************" << std::endl;
+//
+//	viewAll(BEmpty);
+//	viewAllOriginal(BEmptyOrigin);
+//
+//	BEmpty.unique();
+//	BEmptyOrigin.unique();
+//	std::cout << "*unique*" << std::endl;
+//	viewAll(BEmpty);
+//	viewAllOriginal(BEmptyOrigin);
+//	if (BEmpty.size() == BEmptyOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BEmptyOrigin);
+//		std::cout << "received ";
+//		viewAll(BEmpty);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test unique BinaryPredicate not empty list<int> ******************" << std::endl;
+//
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//
+//	A.unique(same_integral_part);
+//	AOrigin.unique(same_integral_part);
+//	std::cout << "*unique BinaryPredicate*" << std::endl;
+//	viewAll(A);
+//	viewAllOriginal(AOrigin);
+//	if (A.back() == AOrigin.back() && A.size() == AOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AOrigin);
+//		std::cout << "received ";
+//		viewAll(A);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test unique BinaryPredicate empty list<int> ******************" << std::endl;
+//
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//
+//	AEmpty.unique(same_integral_part);
+//	AEmptyOrigin.unique(same_integral_part);
+//	std::cout << "*unique BinaryPredicate*" << std::endl;
+//	viewAll(AEmpty);
+//	viewAllOriginal(AEmptyOrigin);
+//	if (AEmpty.front() == AEmptyOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(AEmptyOrigin);
+//		std::cout << "received ";
+//		viewAll(AEmpty);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test unique BinaryPredicate not empty list<std::string> ******************" << std::endl;
+//
+//	B.push_front("Hello");
+//	B.push_front("hello");
+//	B.push_front("Hello1");
+//	B.push_front("Hello2");
+//	B.push_front("lkjhg3");
+//	BOrigin.push_front("Hello");
+//	BOrigin.push_front("hello");
+//	BOrigin.push_front("Hello1");
+//	BOrigin.push_front("Hello2");
+//	BOrigin.push_front("lkjhg3");
+//
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//
+//	B.unique(stringPlus);
+//	BOrigin.unique(stringPlus);
+//	std::cout << "*unique BinaryPredicate*" << std::endl;
+//	viewAll(B);
+//	viewAllOriginal(BOrigin);
+//	if (B.front() == BOrigin.front())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BOrigin);
+//		std::cout << "received ";
+//		viewAll(B);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test unique BinaryPredicate empty list<std::string> ******************" << std::endl;
+//
+//	viewAll(BEmpty);
+//	viewAllOriginal(BEmptyOrigin);
+//
+//	BEmpty.unique(stringPlus);
+//	BEmptyOrigin.unique(stringPlus);
+//	std::cout << "*unique BinaryPredicate*" << std::endl;
+//	viewAll(BEmpty);
+//	viewAllOriginal(BEmptyOrigin);
+//	if (BEmpty.size() == BEmptyOrigin.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(BEmptyOrigin);
+//		std::cout << "received ";
+//		viewAll(BEmpty);
+//
+//		mistakes++;
+//	}
+//
+//	std::cout << "\nTest " << i++ << std::endl;
+//	std::cout << "****************** Test assign list<std::int> ******************" << std::endl;
+//
+//	ft::list<int> firstAs;
+//	ft::list<int> secondAs;
+//	std::list<int> firstAsOriginal;
+//	std::list<int> secondAsOriginal;
+//
+//	firstAs.assign (7,100);                      // 7 ints with value 100
+//	firstAsOriginal.assign (7,100);
+//	secondAs.assign (firstAs.begin(),firstAs.end()); // a copy of first
+//	secondAsOriginal.assign (firstAs.begin(),firstAs.end());
+//	int myintsAs[]={1776,7,4};
+//	firstAs.assign (myintsAs,myintsAs+3);            // assigning from array
+//	firstAsOriginal.assign (myintsAs,myintsAs+3);
+//	viewAll(firstAs);
+//	viewAllOriginal(firstAsOriginal);
+//
+//	if (firstAs.size() == firstAsOriginal.size())
+//		std::cout << "✅ OK" << std::endl;
+//	else
+//	{
+//		std::cout << "❌FALSE❌ : expected ";
+//		viewAllOriginal(firstAsOriginal);
+//		std::cout << "received ";
+//		viewAll(BEmpty);
+//
+//		mistakes++;
+//	}
+//
+//
+//	ft::list<int> mylistIns;
+//	ft::list<int>::iterator itIns;
+//
+//	// set some initial values:
+//	for (int i=1; i<=5; ++i) mylistIns.push_back(i); // 1 2 3 4 5
+//
+//	itIns = mylistIns.begin();
+//	++itIns;       // it points now to number 2           ^
+//
+//	std::cout << *(mylistIns.insert (itIns,10)) << std::endl;                        // 1 10 2 3 4 5
+//	std::cout << *itIns << std::endl;
+//
+//	std::list<int> mylistInsOriginal;
+//	std::list<int>::iterator itInsOriginal;
+//
+//	viewAll(mylistIns);
+//
+//	// set some initial values:
+//	for (int i=1; i<=5; ++i) mylistInsOriginal.push_back(i); // 1 2 3 4 5
+//
+//	itInsOriginal = mylistInsOriginal.begin();
+//	++itInsOriginal;       // it points now to number 2           ^
+//	std::cout << *(mylistInsOriginal.insert(itInsOriginal,10)) << std::endl;
+//	std::cout << *itInsOriginal << std::endl;
+//	viewAllOriginal(mylistInsOriginal);
+//	// "it" still points to number 2                      ^
+//	mylistIns.insert(itIns,2,20);
+//	mylistInsOriginal.insert (itInsOriginal,2,20);                      // 1 10 20 20 2 3 4 5
+//	viewAll(mylistIns);
+//	viewAllOriginal(mylistInsOriginal);
+//	--itIns;
+//	--itInsOriginal;       // it points now to the second 20            ^
+//
+//	std::vector<int> myvector (2,30);
+//	mylistIns.insert (itIns,myvector.begin(),myvector.end());
+//	mylistInsOriginal.insert (itInsOriginal,myvector.begin(),myvector.end());   // 1 10 20 30 30 20 2 3 4 5
+//
+//	viewAll(mylistIns);
+//	viewAllOriginal(mylistInsOriginal);
+//
+////	  double mydoubles[]={ 12.15,  2.72, 73.0,  12.77,  3.14,
+////						   12.77, 73.35, 72.25, 15.3,  72.25 };
+////	  std::list<double> mylist (mydoubles,mydoubles+10);
+////	  ft::list<double> mylistm(mydoubles,mydoubles+10);
+////	  mylist.sort();             //  2.72,  3.14, 12.15, 12.77, 12.77,
+////
+////	mylistm.sort();
+////	mylistm.unique();// 15.3,  72.25, 72.25, 73.0,  73.35
+////
+////	  mylist.unique();           //  2.72,  3.14, 12.15, 12.77
+////								 // 15.3,  72.25, 73.0,  73.35
+////
+////
+////	std::cout << "mylist contains:";
+////	for (ft::list<double>::iterator itm=mylistm.begin(); itm!=mylistm.end(); ++itm)
+////	  std::cout << ' ' << *itm;
+////	std::cout << '\n';
+////
+////	  std::cout << "list contains:";
+////	  for (std::list<double>::iterator it=mylist.begin(); it!=mylist.end(); ++it)
+////		std::cout << ' ' << *it;
+////	  std::cout << '\n';
+//
+//
+////	double mydoubles[] = { 2.72,  3.14, 12.15, 12.77, 12.77, 15.3,  72.25, 72.25, 73.0,  73.35 };
+////	std::list<double> std_list (mydoubles,mydoubles + 10);
+////	ft::list<double> ft_list (mydoubles, mydoubles + 10);
+////
+////		std::cout << "mylist contains:";
+////		for (ft::list<double>::iterator itm=ft_list.begin(); itm!=ft_list.end(); ++itm)
+////		  std::cout << ' ' << *itm;
+////		std::cout << '\n';
+////
+////		  std::cout << "list contains:";
+////		  for (std::list<double>::iterator it=std_list.begin(); it!=std_list.end(); ++it)
+////			std::cout << ' ' << *it;
+////		  std::cout << '\n';
+////	std_list.unique (is_near());
+////	ft_list.unique (is_near());
+////
+////		std::cout << "mylist contains:";
+////		for (ft::list<double>::iterator itm=ft_list.begin(); itm!=ft_list.end(); ++itm)
+////		  std::cout << ' ' << *itm;
+////		std::cout << '\n';
+////
+////		  std::cout << "list contains:";
+////		  for (std::list<double>::iterator it=std_list.begin(); it!=std_list.end(); ++it)
+////			std::cout << ' ' << *it;
+////		  std::cout << '\n';
+//
+//	std::cout << "\nMistakes=" << mistakes << std::endl;
+
+
+
+
+
+	int mistakes = 0;
+
+	{
+		std::cout << "*********** VECTOR TEST ***********" << std::endl;
+
+		std::cout << "\n-Test constructors-\n";
+		std::cout << "\nINT\n";
+
+
+		{
+			std::cout << "\nINT empty constructor\n";
+			std::vector<int> std_vector;
+			ft::vector<int> ft_vector;
+			printVector(std_vector);
+			printVector(ft_vector);
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+
+		{
+			std::cout << "\nINT with size constructor\n";
+			std::vector<int> std_vector(10, 5);
+			ft::vector<int> ft_vector(10, 5);
+			printVector(std_vector);
+			printVector(ft_vector);
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << " | std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+
+		{
+			std::cout << "\nINT with iterator constructor\n";
+			std::vector<int> std_vector(10, 21);
+			ft::vector<int> ft_vector(10, 21);
+			std::cout << "Vector for copy :";
+			printVector(std_vector);
+			std::cout << "Vector for copy :";
+
+			ft::vector<int> ft_vector2(ft_vector.begin(), ft_vector.end());
+			std::vector<int> std_vector2(std_vector.begin(), std_vector.end());
+
+			printVector(ft_vector);
+			if (std_vector2.capacity() == ft_vector2.capacity() && std_vector2.size() == ft_vector2.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector2.size() << " ft:size - " << ft_vector2.size() << " | std:capacity - " << std_vector2.capacity() << " ft:capacity - " << ft_vector2.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+
+		std::cout << "--------------------------------";
+
+		std::cout << "\nSTRING\n";
+
+
+		{
+			std::cout << "\nSTRING empty constructor\n";
+			std::vector<std::string> std_vector;
+			ft::vector<std::string> ft_vector;
+			printVector(std_vector);
+			printVector(ft_vector);
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+
+		{
+			std::cout << "\nSTRING with size constructor\n";
+			std::vector<std::string> std_vector(10, "Hello");
+			ft::vector<std::string> ft_vector(10, "Hello");
+			printVector(std_vector);
+			printVector(ft_vector);
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << " | std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+
+		{
+			std::cout << "\nSTRING with iterator constructor\n";
+			std::vector<std::string> std_vector(10, "World");
+			ft::vector<std::string> ft_vector(10, "World");
+			std::cout << "Vector for copy :";
+			printVector(std_vector);
+			std::cout << "Vector for copy :";
+
+			ft::vector<std::string> ft_vector2(ft_vector.begin(), ft_vector.end());
+			std::vector<std::string> std_vector2(std_vector.begin(), std_vector.end());
+
+			printVector(ft_vector);
+			if (std_vector2.capacity() == ft_vector2.capacity() && std_vector2.size() == ft_vector2.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector2.size() << " ft:size - " << ft_vector2.size() << " | std:capacity - " << std_vector2.capacity() << " ft:capacity - " << ft_vector2.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+		std::cout << "--------------------------------\n";
+
+		std::cout << "\nCHECK resize\n";
+
+		{
+			std::cout << "INT get smallest";
+			std::vector<int> std_vector(10, 21);
+			ft::vector<int> ft_vector(10, 21);
+			std::cout << "Before:\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+			std_vector.resize(5);
+			ft_vector.resize(5);
+			std::cout << "After:\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+
+
+		{
+			std::cout << "INT get biggest\n";
+			std::vector<int> std_vector(10, 21);
+			ft::vector<int> ft_vector(10, 21);
+			std::cout << "Before:\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+			std_vector.resize(50);
+			ft_vector.resize(50);
+			std::cout << "\nAfter:\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+
+		{
+			std::cout << "STRING get smallest";
+			std::vector<std::string> std_vector(10, "hello");
+			ft::vector<std::string> ft_vector(10, "hello");
+			std::cout << "Before:\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+			std_vector.resize(5);
+			ft_vector.resize(5);
+			std::cout << "After:\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+
+
+		{
+			std::cout << "STRING get biggest";
+			std::vector<std::string> std_vector(10, "world");
+			ft::vector<std::string> ft_vector(10, "world");
+			std::cout << "Before:\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+			std_vector.resize(50);
+			ft_vector.resize(50);
+			std::cout << "\nAfter:\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+
+		std::cout << "--------------------------------\n";
+
+		std::cout << "\nCHECK reserve\n";
+
+		{
+			std::cout << "Empty\n";
+			std::vector<std::string> std_vector;
+			ft::vector<std::string> ft_vector;
+			std_vector.reserve(100);
+			ft_vector.reserve(100);
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+		{
+			std::cout << "Not Empty\n";
+			std::vector<std::string> std_vector(10, "world");
+			ft::vector<std::string> ft_vector(10, "world");
+			std::cout << "Before:\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+			std_vector.reserve(50);
+			ft_vector.reserve(50);
+			std::cout << "\nAfter:\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+		std::cout << "--------------------------------\n";
+
+		std::cout << "\nCHECK []\n";
+		{
+			std::vector<int> std_vector;
+			ft::vector<int> ft_vector;
+
+			for (int i = 0; i < 10; ++i) {
+				std_vector.push_back(i);
+				ft_vector.push_back(i);
+			}
+
+			std::cout << "std[5] = " << std_vector[5] << std::endl;
+			std::cout << " ft[5] = " << ft_vector[5] << std::endl;
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size() && std_vector[5] == ft_vector[5]) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+		std::cout << "--------------------------------\n";
+
+		std::cout << "\nCHECK at not valid\n";
+		{
+			std::vector<int> std_vector;
+			ft::vector<int> ft_vector;
+
+			for (int i = 0; i < 10; ++i) {
+				std_vector.push_back(i);
+				ft_vector.push_back(i);
+			}
+
+			try {
+				std::cout << "std get 100 index = " << std_vector.at(100) << std::endl;
+			} catch (std::out_of_range err) {
+				std::cout << "std:: Out of range\n";
+			}
+
+			try {
+				std::cout << " ft get 100 index = " << ft_vector.at(100) << std::endl;
+			} catch (std::out_of_range err) {
+				std::cout << " ft:: Out of range\n";
+			}
+
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size() && std_vector[5] == ft_vector[5]) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+
+		std::cout << "\nCHECK at valid\n";
+		{
+			std::vector<int> std_vector;
+			ft::vector<int> ft_vector;
+
+			for (int i = 0; i < 10; ++i) {
+				std_vector.push_back(i);
+				ft_vector.push_back(i);
+			}
+
+			try {
+				std::cout << "std get 9 index = " << std_vector.at(9) << std::endl;
+			} catch (std::out_of_range err) {
+				std::cout << "std:: Out of range\n";
+			}
+
+			try {
+				std::cout << " ft get 9 index = " << ft_vector.at(9) << std::endl;
+			} catch (std::out_of_range err) {
+				std::cout << " ft:: Out of range\n";
+			}
+
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size() && std_vector.at(9) == ft_vector.at(9)) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+		std::cout << "--------------------------------\n";
+
+		std::cout << "\nCHECK front\n";
+		{
+			std::vector<int> std_vector;
+			ft::vector<int> ft_vector;
+
+			for (int i = 0; i < 10; ++i) {
+				std_vector.push_back(i);
+				ft_vector.push_back(i);
+			}
+
+			std::cout << "std:front = " << std_vector.front() << std::endl;
+			std::cout << " ft:front = " << ft_vector.front() << std::endl;
+
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size() && std_vector.front() == ft_vector.front()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+
+		}
+
+
+
+		std::cout << "--------------------------------\n";
+
+		std::cout << "\nCHECK back\n";
+		{
+			std::vector<int> std_vector;
+			ft::vector<int> ft_vector;
+
+			for (int i = 0; i < 10; ++i) {
+				std_vector.push_back(i);
+				ft_vector.push_back(i);
+			}
+
+			std::cout << "std:back = " << std_vector.back() << std::endl;
+			std::cout << " ft:back = " << ft_vector.back() << std::endl;
+
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size() && std_vector.back() == ft_vector.back()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+
+		}
+
+
+
+		std::cout << "--------------------------------\n";
+
+		std::cout << "\nCHECK assign\n";
+		{
+			std::cout << "CHECK assign in empty\n";
+
+			std::vector<int> std_vector;
+			ft::vector<int> ft_vector;
+
+			std::cout << "BEFORE\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			std::cout << "AFTER assign 6 100\n";
+			std_vector.assign(6, 100);
+			ft_vector.assign(6, 100);
+
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+		{
+			std::cout << "\nCHECK assign not empty\n";
+
+			std::vector<int> std_vector(21, 10);
+			ft::vector<int> ft_vector(21, 10);
+
+			std::cout << "BEFORE\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			std::cout << "AFTER assign 6 100\n";
+			std_vector.assign(6, 100);
+			ft_vector.assign(6, 100);
+
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+
+		{
+			std::cout << "CHECK assign in empty with iterators\n";
+
+			std::vector<int> std_vector;
+			ft::vector<int> ft_vector;
+
+			std::vector<int> std_vector2(42, 10);
+			ft::vector<int> ft_vector2(42, 10);
+
+			std::cout << "BEFORE\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			std::cout << "AFTER assign 42 time 10 value\n";
+			std_vector.assign(std_vector2.begin(), std_vector2.end());
+			ft_vector.assign(ft_vector2.begin(), ft_vector2.end());
+
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+
+
+		{
+			std::cout << "CHECK assign in not empty with iterators\n";
+
+			std::vector<int> std_vector(2, 21);
+			ft::vector<int> ft_vector(2, 21);
+
+			std::vector<int> std_vector2(42, 10);
+			ft::vector<int> ft_vector2(42, 10);
+
+			std::cout << "BEFORE\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			std::cout << "AFTER assign 42 time 10 value\n";
+			std_vector.assign(std_vector2.begin(), std_vector2.end());
+			ft_vector.assign(ft_vector2.begin(), ft_vector2.end());
+
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+
+		std::cout << "--------------------------------\n";
+
+		std::cout << "\nCHECK push_back\n";
+		{
+			std::cout << "CHECK push_back empty\n";
+			std::vector<int> std_vector;
+			ft::vector<int> ft_vector;
+
+
+			std::cout << "BEFORE\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			std::cout << "AFTER assign push_back\n";
+			for (int i = 0; i < 10; ++i) {
+				std_vector.push_back(i);
+				ft_vector.push_back(i);
+			}
+			printVector(std_vector);
+			printVector(ft_vector);
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+
+		std::cout << "--------------------------------\n";
+
+		std::cout << "\nCHECK pop_back\n";
+
+		{
+			std::cout << "CHECK pop_back\n";
+			std::vector<int> std_vector;
+			ft::vector<int> ft_vector;
+			for (int i = 0; i < 10; ++i) {
+				std_vector.push_back(i);
+				ft_vector.push_back(i);
+			}
+			std::cout << "BEFORE\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			std::cout << "AFTER\n";
+			std_vector.pop_back();
+			ft_vector.pop_back();
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+
+
+		std::cout << "--------------------------------\n";
+
+		std::cout << "\nCHECK insert\n";
+
+		{
+			std::cout << "\nCHECK insert single element in empty\n";
+			std::vector<int> std_vector;
+			ft::vector<int> ft_vector;
+			std::cout << "BEFORE\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+			std::cout << "AFTER insert\n";
+			std_vector.insert(std_vector.begin(), 1);
+			ft_vector.insert(ft_vector.begin(), 1);
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+		{
+			std::cout << "\nCHECK insert single element in not empty in begin\n";
+			std::vector<int> std_vector(5, 21);
+			ft::vector<int> ft_vector(5, 21);
+			std::cout << "BEFORE\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+			std::cout << "AFTER insert\n";
+			std_vector.insert(std_vector.begin(), 1);
+			ft_vector.insert(ft_vector.begin(), 1);
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+		{
+			std::cout << "\nCHECK insert single element in not empty in after begin\n";
+			std::vector<int> std_vector(5, 21);
+			ft::vector<int> ft_vector(5, 21);
+			std::cout << "BEFORE\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+			std::cout << "AFTER insert\n";
+			std_vector.insert(++std_vector.begin(), 1);
+			ft_vector.insert(++ft_vector.begin(), 1);
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+		{
+			std::cout << "\nCHECK insert single element in not empty in end\n";
+			std::vector<int> std_vector(5, 21);
+			ft::vector<int> ft_vector(5, 21);
+			std::cout << "BEFORE\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+			std::cout << "AFTER insert\n";
+			std_vector.insert(std_vector.end(), 1);
+			ft_vector.insert(ft_vector.end(), 1);
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+
+		{
+			std::cout << "\nCHECK insert n elements in empty in begin\n";
+			std::vector<int> std_vector;
+			ft::vector<int> ft_vector;
+			std::cout << "BEFORE\n";
+			printVector(std_vector);
+			printVector(ft_vector);
+			std::cout << "AFTER insert\n";
+			std_vector.insert(std_vector.begin(), 5, 1);
+			ft_vector.insert(ft_vector.begin(), 5, 1);
+			printVector(std_vector);
+			printVector(ft_vector);
+
+			if (std_vector.capacity() == ft_vector.capacity() && std_vector.size() == ft_vector.size()) {
+				std::cout << "✅ OK" << std::endl;
+			} else {
+				std::cout << "❌FALSE❌ : std:size - " << std_vector.size() << " ft:size - " << ft_vector.size() << "| std:capacity - " << std_vector.capacity() << " ft:capacity - " << ft_vector.capacity() << std::endl;
+				++mistakes;
+			}
+		}
+
+	}
 
 	return 0;
 }

@@ -269,7 +269,8 @@ public:
 		}
 	}
 
-	list (const list& x) { // todo ХЗ
+	list (const list& x): _size(0) { // todo ХЗ
+		create_end_node();
 		*this = x;
 	}
 
@@ -312,7 +313,7 @@ public:
 	//Capacity:
 	bool empty() const { return _size == 0; }
 	size_type size() const { return _size; }
-	size_type max_size() const { return std::numeric_limits<size_type>::max() / sizeof(list<T, Alloc>); }
+	size_type max_size() const { return std::numeric_limits<size_type>::max() / sizeof(t_node) / ((sizeof(value_type) == 1) ? 2 : 1); }
 
 	//Element access:
 	reference front() {
@@ -349,13 +350,16 @@ public:
 	}
 
 	void pop_front() {
-		end_node->next = delete_node(end_node->next);
+		if (_size)
+			end_node->next = delete_node(end_node->next);
 	}
 
 	void pop_back() {
-		t_node* temp = end_node->prev;
-		unlink_node(temp);
-		delete_node(temp);
+		if (_size) {
+			t_node* temp = end_node->prev;
+			unlink_node(temp);
+			delete_node(temp);
+		}
 	}
 
 	iterator insert (iterator position, const value_type& val) {
@@ -381,9 +385,7 @@ public:
 
 	iterator erase (iterator position) {
 		unlink_node(position.getPtr());
-		t_node * res = position.getPtr()->next;
-		delete_node(position.getPtr());
-		return iterator(res);
+		return iterator(delete_node(position.getPtr()));
 	}
 
 	iterator erase (iterator first, iterator last) {
@@ -455,8 +457,6 @@ public:
 			else
 				++start;
 		}
-		iterator start2 = begin();
-		++start;
 	}
 
 	void	unique() {
@@ -534,7 +534,6 @@ public:
 		if (start == end())
 			return;
 		iterator next = ++begin();
-		value_type value = 0;
 
 		while (start != end()) {
 			while (next != end()) {
@@ -555,7 +554,6 @@ public:
 		if (start == end())
 			return;
 		iterator next = ++begin();
-		value_type value = 0;
 
 		while (start != end()) {
 			while (next != end()) {
@@ -619,7 +617,7 @@ private:
 		end_node = allocator_rebind.allocate(1);
 		end_node->next = end_node;
 		end_node->prev = end_node;
-		end_node->data = 0;
+		end_node->data = alloc.allocate(1);
 	}
 
 	t_node* delete_node(t_node* node) {
@@ -665,6 +663,13 @@ template <class T, class Alloc>
 bool operator== (const ft::list<T,Alloc>& lhs, const ft::list<T,Alloc>& rhs) {
 	if (lhs.size() != rhs.size()) {
 		return false;
+	}
+	typename ft::list<T, Alloc>::const_iterator l_start = lhs.begin();
+	typename ft::list<T, Alloc>::const_iterator r_start = lhs.begin();
+	for (; l_start != lhs.end(); ++l_start, ++r_start) {
+		if (*l_start != *r_start) {
+			return false;
+		}
 	}
 	return true;
 }

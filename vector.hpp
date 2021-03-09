@@ -231,29 +231,34 @@ public:
 	explicit vector (const allocator_type& alloc = allocator_type()) {
 		this->alloc = alloc;
 		_size = 0;
-		_capacity = 1; //todo Чекнуть
-		array = new value_type[1];
+		_capacity = 0;
+		array = 0;
 	}
 
-//	explicit vector (size_type n, const value_type& val = value_type(),
-//					 const allocator_type& alloc = allocator_type()) {
-//		array = new value_type[n * 2];
-//		_capacity = n * 2;
-//		_size = 0;
-//		for (size_type i = 0; i < n; ++i) {
-//			push_back(val);
-//		}
-//	}
+	explicit vector (size_type n, const value_type& val = value_type(),
+					 const allocator_type& alloc = allocator_type()) {
+		array = new value_type[n * 2];
+		_capacity = n;
+		_size = 0;
+		for (size_type i = 0; i < n; ++i) {
+			push_back(val);
+		}
+	}
 
 	template <class InputIterator>
 	vector (InputIterator first, InputIterator last,
-			const allocator_type& alloc = allocator_type()) {
+			const allocator_type& alloc = allocator_type(), typename ft::enable_if<std::__is_input_iterator<InputIterator>::value>::type* = 0) {
 		_size = 0;
-		_capacity = 1; //todo Чекнуть
-		array = new value_type[1];
-		for (; first != last; ++first) {
-			push_back(*first);
+		_capacity = len(first, last);
+		if (_capacity) {
+			array = new value_type[_capacity];
+			for (; first != last; ++first) {
+				push_back(*first);
+			}
+		} else {
+			array = 0;
 		}
+
 	}
 
 	vector (const vector& x): _size(0), _capacity(0) {
@@ -261,15 +266,22 @@ public:
 	}
 
 	vector& operator= (const vector& x) {
-		if (_size)
+		if (_size && array)
 			delete[] array;
 		_capacity = x._capacity;
 		_size = x._size;
-		array = new value_type[_capacity];
-		for (size_type i = 0; i < _size; ++i) {
-			array[i] = x.array[i];
+		if (x.capacity()) {
+			array = new value_type[_capacity];
+			for (size_type i = 0; i < _size; ++i) {
+				array[i] = x.array[i];
+			}
 		}
+		return *this;
 	}//end Constructors
+
+	~vector() {
+		clear();
+	}
 
 	//Iterators b:
 	iterator begin() { return iterator(array); }
@@ -288,11 +300,24 @@ public:
 		return alloc.max_size();
 	}
 	void resize (size_type n, value_type val = value_type()) {
-		while (n < this->_size)
-			pop_back();
-		while (n > this->_size)
-			push_back(val);
+		if (n < _size) {
+			while (n < _size)
+				pop_back();
+		} else {
+			pointer temp = new value_type[n];
+			for (size_type i = 0; i < _size; ++i) {
+				temp[i] = array[i];
+			}
+			for (size_type i = _size; i < n; ++i) {
+				temp[i] = val;
+			}
+			delete[] array;
+			_size = n;
+			_capacity = n;
+		}
+
 	}
+
 	size_type capacity() const { return _capacity; }
 	bool empty() const { return _size == 0; }
 
@@ -331,33 +356,56 @@ public:
 
 	//Modifiers:
 	void	assign(size_type n, const value_type& val) {
-		_size = 0;
-		while (n) {
-			push_back(val);
-			--n;
+		if (_capacity < n) {
+			clear();
+			array = new value_type[n];
+			_capacity = n;
 		}
+		for (size_type i = 0; i < n; ++i) {
+			array[i] = val;
+		}
+		_size = n;
+
 	}
 
-//	template <class InputIterator>
-//	void	assign (InputIterator first, InputIterator last,
-//					typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type* = 0) {
-//		_size = 0;
-//		while (first != last) {
-//			push_back(*first);
-//			++first;
-//		}
-//	}
+	template <class InputIterator>
+	void	assign (InputIterator first, InputIterator last,
+					typename ft::enable_if<std::__is_input_iterator<InputIterator>::value>::type* = 0) {
+		size_type l = len(first, last);
+		if (_capacity < l) {
+			clear();
+			array = new value_type[l];
+			_capacity = l;
+		}
+		for (int i = 0; first != last; ++first, ++i) {
+			array[i] = *first;
+		}
+		_size = l;
+	}
 
-	void push_back (const value_type& val) { add_elem(val); }
+	void push_back (const value_type& val) {
+		if (!array) {
+			array = new value_type[1];
+			_capacity = 1;
+			_size = 1;
+			array[0] = val;
+		} else {
+			add_elem(val);
+		}
+	}
 	void pop_back() { --_size; }
 	void insert (iterator position, size_type n, const value_type& val) { //todo не чекал
 		vector<value_type> temp(begin(), position);
+
 		while (n) {
 			temp.push_back(val);
 			--n;
 		}
-		temp.assign(position, end());
-		_size = 0;
+		temp.reserve(_size + n);
+		for (; position != end(); ++position) {
+			temp.push_back(*position);
+		}
+		clear();
 		*this = temp;
 	}
 	iterator insert (iterator position, const value_type& val) {//todo не чекал
@@ -365,17 +413,17 @@ public:
 		return (--position);
 	}
 
-//	template <class InputIterator>//todo не чекал
-//	void insert (iterator position, InputIterator first, InputIterator last) {
-//		vector<value_type> temp(begin(), position);
-//		while (first != last) {
-//			temp.push_back(*first);
-//			++first;
-//		}
-//		temp.assign(position, end());
-//		_size = 0;
-//		*this = temp;
-//	}
+	template <class InputIterator>//todo не чекал
+	void insert (iterator position, InputIterator first, InputIterator last, typename ft::enable_if<std::__is_input_iterator<InputIterator>::value>::type* = 0) {
+		vector<value_type> temp(begin(), position);
+		while (first != last) {
+			temp.push_back(*first);
+			++first;
+		}
+		temp.assign(position, end());
+		_size = 0;
+		*this = temp;
+	}
 
 	iterator erase (iterator position) {
 		iterator res(position);
@@ -415,32 +463,10 @@ public:
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	void print() {
-		for (size_type i = 0; i < _size; ++i) {
-			std::cout << array[i] << " ";
-		}
-	}
-
-
 private:
 	void add_elem(const value_type& val) {
-		if (_size + 1 >= _capacity)
+
+		if (_size + 1 > _capacity)
 			resize();
 		array[_size] = val;
 		++_size;
