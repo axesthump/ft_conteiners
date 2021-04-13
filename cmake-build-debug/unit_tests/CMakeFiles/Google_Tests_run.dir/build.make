@@ -90,20 +90,80 @@ unit_tests/CMakeFiles/Google_Tests_run.dir/vector.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Google_Tests_run.dir/vector.cpp.s"
 	cd /Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/casubmar/ft_conteiners/unit_tests/vector.cpp -o CMakeFiles/Google_Tests_run.dir/vector.cpp.s
 
+unit_tests/CMakeFiles/Google_Tests_run.dir/list.cpp.o: unit_tests/CMakeFiles/Google_Tests_run.dir/flags.make
+unit_tests/CMakeFiles/Google_Tests_run.dir/list.cpp.o: ../unit_tests/list.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object unit_tests/CMakeFiles/Google_Tests_run.dir/list.cpp.o"
+	cd /Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Google_Tests_run.dir/list.cpp.o -c /Users/casubmar/ft_conteiners/unit_tests/list.cpp
+
+unit_tests/CMakeFiles/Google_Tests_run.dir/list.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Google_Tests_run.dir/list.cpp.i"
+	cd /Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/casubmar/ft_conteiners/unit_tests/list.cpp > CMakeFiles/Google_Tests_run.dir/list.cpp.i
+
+unit_tests/CMakeFiles/Google_Tests_run.dir/list.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Google_Tests_run.dir/list.cpp.s"
+	cd /Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/casubmar/ft_conteiners/unit_tests/list.cpp -o CMakeFiles/Google_Tests_run.dir/list.cpp.s
+
+unit_tests/CMakeFiles/Google_Tests_run.dir/map.cpp.o: unit_tests/CMakeFiles/Google_Tests_run.dir/flags.make
+unit_tests/CMakeFiles/Google_Tests_run.dir/map.cpp.o: ../unit_tests/map.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object unit_tests/CMakeFiles/Google_Tests_run.dir/map.cpp.o"
+	cd /Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Google_Tests_run.dir/map.cpp.o -c /Users/casubmar/ft_conteiners/unit_tests/map.cpp
+
+unit_tests/CMakeFiles/Google_Tests_run.dir/map.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Google_Tests_run.dir/map.cpp.i"
+	cd /Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/casubmar/ft_conteiners/unit_tests/map.cpp > CMakeFiles/Google_Tests_run.dir/map.cpp.i
+
+unit_tests/CMakeFiles/Google_Tests_run.dir/map.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Google_Tests_run.dir/map.cpp.s"
+	cd /Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/casubmar/ft_conteiners/unit_tests/map.cpp -o CMakeFiles/Google_Tests_run.dir/map.cpp.s
+
+unit_tests/CMakeFiles/Google_Tests_run.dir/queue.cpp.o: unit_tests/CMakeFiles/Google_Tests_run.dir/flags.make
+unit_tests/CMakeFiles/Google_Tests_run.dir/queue.cpp.o: ../unit_tests/queue.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object unit_tests/CMakeFiles/Google_Tests_run.dir/queue.cpp.o"
+	cd /Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Google_Tests_run.dir/queue.cpp.o -c /Users/casubmar/ft_conteiners/unit_tests/queue.cpp
+
+unit_tests/CMakeFiles/Google_Tests_run.dir/queue.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Google_Tests_run.dir/queue.cpp.i"
+	cd /Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/casubmar/ft_conteiners/unit_tests/queue.cpp > CMakeFiles/Google_Tests_run.dir/queue.cpp.i
+
+unit_tests/CMakeFiles/Google_Tests_run.dir/queue.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Google_Tests_run.dir/queue.cpp.s"
+	cd /Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/casubmar/ft_conteiners/unit_tests/queue.cpp -o CMakeFiles/Google_Tests_run.dir/queue.cpp.s
+
+unit_tests/CMakeFiles/Google_Tests_run.dir/stack.cpp.o: unit_tests/CMakeFiles/Google_Tests_run.dir/flags.make
+unit_tests/CMakeFiles/Google_Tests_run.dir/stack.cpp.o: ../unit_tests/stack.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object unit_tests/CMakeFiles/Google_Tests_run.dir/stack.cpp.o"
+	cd /Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Google_Tests_run.dir/stack.cpp.o -c /Users/casubmar/ft_conteiners/unit_tests/stack.cpp
+
+unit_tests/CMakeFiles/Google_Tests_run.dir/stack.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Google_Tests_run.dir/stack.cpp.i"
+	cd /Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/casubmar/ft_conteiners/unit_tests/stack.cpp > CMakeFiles/Google_Tests_run.dir/stack.cpp.i
+
+unit_tests/CMakeFiles/Google_Tests_run.dir/stack.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Google_Tests_run.dir/stack.cpp.s"
+	cd /Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/casubmar/ft_conteiners/unit_tests/stack.cpp -o CMakeFiles/Google_Tests_run.dir/stack.cpp.s
+
 # Object files for target Google_Tests_run
 Google_Tests_run_OBJECTS = \
-"CMakeFiles/Google_Tests_run.dir/vector.cpp.o"
+"CMakeFiles/Google_Tests_run.dir/vector.cpp.o" \
+"CMakeFiles/Google_Tests_run.dir/list.cpp.o" \
+"CMakeFiles/Google_Tests_run.dir/map.cpp.o" \
+"CMakeFiles/Google_Tests_run.dir/queue.cpp.o" \
+"CMakeFiles/Google_Tests_run.dir/stack.cpp.o"
 
 # External object files for target Google_Tests_run
 Google_Tests_run_EXTERNAL_OBJECTS =
 
 unit_tests/Google_Tests_run: unit_tests/CMakeFiles/Google_Tests_run.dir/vector.cpp.o
+unit_tests/Google_Tests_run: unit_tests/CMakeFiles/Google_Tests_run.dir/list.cpp.o
+unit_tests/Google_Tests_run: unit_tests/CMakeFiles/Google_Tests_run.dir/map.cpp.o
+unit_tests/Google_Tests_run: unit_tests/CMakeFiles/Google_Tests_run.dir/queue.cpp.o
+unit_tests/Google_Tests_run: unit_tests/CMakeFiles/Google_Tests_run.dir/stack.cpp.o
 unit_tests/Google_Tests_run: unit_tests/CMakeFiles/Google_Tests_run.dir/build.make
 unit_tests/Google_Tests_run: lib/libgtestd.a
 unit_tests/Google_Tests_run: lib/libgtest_maind.a
 unit_tests/Google_Tests_run: lib/libgtestd.a
 unit_tests/Google_Tests_run: unit_tests/CMakeFiles/Google_Tests_run.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Google_Tests_run"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable Google_Tests_run"
 	cd /Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Google_Tests_run.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

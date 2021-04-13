@@ -367,6 +367,9 @@
 		<Unit filename="/Users/casubmar/ft_conteiners/main.cpp">
 			<Option target="ft_container"/>
 		</Unit>
+		<Unit filename="/Users/casubmar/ft_conteiners/map.hpp">
+			<Option target="ft_container"/>
+		</Unit>
 		<Unit filename="/Users/casubmar/ft_conteiners/queue.hpp">
 			<Option target="ft_container"/>
 		</Unit>
@@ -384,6 +387,18 @@
 		</Unit>
 		<Unit filename="/Users/casubmar/ft_conteiners/unit_tests/lib/googletest/src/gtest_main.cc">
 			<Option target="gtest_main"/>
+		</Unit>
+		<Unit filename="/Users/casubmar/ft_conteiners/unit_tests/list.cpp">
+			<Option target="Google_Tests_run"/>
+		</Unit>
+		<Unit filename="/Users/casubmar/ft_conteiners/unit_tests/map.cpp">
+			<Option target="Google_Tests_run"/>
+		</Unit>
+		<Unit filename="/Users/casubmar/ft_conteiners/unit_tests/queue.cpp">
+			<Option target="Google_Tests_run"/>
+		</Unit>
+		<Unit filename="/Users/casubmar/ft_conteiners/unit_tests/stack.cpp">
+			<Option target="Google_Tests_run"/>
 		</Unit>
 		<Unit filename="/Users/casubmar/ft_conteiners/unit_tests/vector.cpp">
 			<Option target="Google_Tests_run"/>

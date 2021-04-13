@@ -176,7 +176,7 @@ unit_tests/lib/googletest/clean: unit_tests/lib/googletest/CMakeFiles/gtest.dir/
 CMakeFiles/ft_container.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ft_container.dir/build.make CMakeFiles/ft_container.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ft_container.dir/build.make CMakeFiles/ft_container.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles --progress-num=3,4 "Built target ft_container"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles --progress-num=7,8 "Built target ft_container"
 .PHONY : CMakeFiles/ft_container.dir/all
 
 # Build rule for subdir invocation for target.
@@ -204,12 +204,12 @@ unit_tests/CMakeFiles/Google_Tests_run.dir/all: unit_tests/lib/googletest/CMakeF
 unit_tests/CMakeFiles/Google_Tests_run.dir/all: unit_tests/lib/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f unit_tests/CMakeFiles/Google_Tests_run.dir/build.make unit_tests/CMakeFiles/Google_Tests_run.dir/depend
 	$(MAKE) $(MAKESILENT) -f unit_tests/CMakeFiles/Google_Tests_run.dir/build.make unit_tests/CMakeFiles/Google_Tests_run.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target Google_Tests_run"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target Google_Tests_run"
 .PHONY : unit_tests/CMakeFiles/Google_Tests_run.dir/all
 
 # Build rule for subdir invocation for target.
 unit_tests/CMakeFiles/Google_Tests_run.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 unit_tests/CMakeFiles/Google_Tests_run.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles 0
 .PHONY : unit_tests/CMakeFiles/Google_Tests_run.dir/rule
@@ -231,7 +231,7 @@ unit_tests/CMakeFiles/Google_Tests_run.dir/clean:
 unit_tests/lib/googlemock/CMakeFiles/gmock.dir/all: unit_tests/lib/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f unit_tests/lib/googlemock/CMakeFiles/gmock.dir/build.make unit_tests/lib/googlemock/CMakeFiles/gmock.dir/depend
 	$(MAKE) $(MAKESILENT) -f unit_tests/lib/googlemock/CMakeFiles/gmock.dir/build.make unit_tests/lib/googlemock/CMakeFiles/gmock.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles --progress-num=5,6 "Built target gmock"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles --progress-num=9,10 "Built target gmock"
 .PHONY : unit_tests/lib/googlemock/CMakeFiles/gmock.dir/all
 
 # Build rule for subdir invocation for target.
@@ -255,11 +255,11 @@ unit_tests/lib/googlemock/CMakeFiles/gmock.dir/clean:
 # Target rules for target unit_tests/lib/googlemock/CMakeFiles/gmock_main.dir
 
 # All Build rule for target.
-unit_tests/lib/googlemock/CMakeFiles/gmock_main.dir/all: unit_tests/lib/googlemock/CMakeFiles/gmock.dir/all
 unit_tests/lib/googlemock/CMakeFiles/gmock_main.dir/all: unit_tests/lib/googletest/CMakeFiles/gtest.dir/all
+unit_tests/lib/googlemock/CMakeFiles/gmock_main.dir/all: unit_tests/lib/googlemock/CMakeFiles/gmock.dir/all
 	$(MAKE) $(MAKESILENT) -f unit_tests/lib/googlemock/CMakeFiles/gmock_main.dir/build.make unit_tests/lib/googlemock/CMakeFiles/gmock_main.dir/depend
 	$(MAKE) $(MAKESILENT) -f unit_tests/lib/googlemock/CMakeFiles/gmock_main.dir/build.make unit_tests/lib/googlemock/CMakeFiles/gmock_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles --progress-num=7,8 "Built target gmock_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles --progress-num=11,12 "Built target gmock_main"
 .PHONY : unit_tests/lib/googlemock/CMakeFiles/gmock_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -286,7 +286,7 @@ unit_tests/lib/googlemock/CMakeFiles/gmock_main.dir/clean:
 unit_tests/lib/googletest/CMakeFiles/gtest_main.dir/all: unit_tests/lib/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f unit_tests/lib/googletest/CMakeFiles/gtest_main.dir/build.make unit_tests/lib/googletest/CMakeFiles/gtest_main.dir/depend
 	$(MAKE) $(MAKESILENT) -f unit_tests/lib/googletest/CMakeFiles/gtest_main.dir/build.make unit_tests/lib/googletest/CMakeFiles/gtest_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles --progress-num=11,12 "Built target gtest_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles --progress-num=15,16 "Built target gtest_main"
 .PHONY : unit_tests/lib/googletest/CMakeFiles/gtest_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -313,7 +313,7 @@ unit_tests/lib/googletest/CMakeFiles/gtest_main.dir/clean:
 unit_tests/lib/googletest/CMakeFiles/gtest.dir/all:
 	$(MAKE) $(MAKESILENT) -f unit_tests/lib/googletest/CMakeFiles/gtest.dir/build.make unit_tests/lib/googletest/CMakeFiles/gtest.dir/depend
 	$(MAKE) $(MAKESILENT) -f unit_tests/lib/googletest/CMakeFiles/gtest.dir/build.make unit_tests/lib/googletest/CMakeFiles/gtest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles --progress-num=9,10 "Built target gtest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/casubmar/ft_conteiners/cmake-build-debug/CMakeFiles --progress-num=13,14 "Built target gtest"
 .PHONY : unit_tests/lib/googletest/CMakeFiles/gtest.dir/all
 
 # Build rule for subdir invocation for target.

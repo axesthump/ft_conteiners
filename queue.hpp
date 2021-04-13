@@ -16,42 +16,57 @@ namespace ft {
 		typedef	Container	container_type;
 		typedef	size_t		size_type;
 
-		explicit queue (const container_type& ctnr = container_type()) : _ctnr(ctnr) {
+		explicit queue (const container_type& ctnr = container_type()) : data(ctnr) {
 		}
 
-		bool empty() const { return _ctnr.empty(); }
-		size_type size() const { return _ctnr.size(); }
+		bool empty() const { return data.empty(); }
+		size_type size() const { return data.size(); }
 
-		value_type& front() { return _ctnr.front(); }
-		const value_type& front() const { return _ctnr.front(); }
-		value_type& back() { return _ctnr.back(); }
-		const value_type& back() const { return _ctnr.back(); }
-		void push (const value_type& val) { _ctnr.push_back(val); }
-		void pop() { _ctnr.pop_front(); }
+		value_type& front() { return data.front(); }
+		const value_type& front() const { return data.front(); }
+		value_type& back() { return data.back(); }
+		const value_type& back() const { return data.back(); }
+		void push (const value_type& val) { data.push_back(val); }
+		void pop() { data.pop_front(); }
 
-		friend bool	operator==(const queue<T, Container>& lhs, const queue<T, Container>& rhs) {
-			return (lhs.c == rhs.c);
-		}
-		friend bool operator!=(const queue<T, Container>& lhs, const queue<T, Container>& rhs) {
-			return (lhs.c != rhs.c);
-		}
-		friend bool	operator<(const queue<T, Container>& lhs, const queue<T, Container>& rhs) {
-			return (lhs.c < rhs.c);
-		}
-		friend bool operator>(const queue<T, Container>& lhs, const queue<T, Container>& rhs) {
-			return (lhs.c > rhs.c);
-		}
-		friend bool	operator<=(const queue<T, Container>& lhs, const queue<T, Container>& rhs) {
-			return (lhs.c <= rhs.c);
-		}
-		friend bool operator>=(const queue<T, Container>& lhs, const queue<T, Container>& rhs) {
-			return (lhs.c >= rhs.c);
-		}
+		container_type getQueue() const { return data; }
 
 	protected:
-		container_type	_ctnr;
+		container_type	data;
 	};
 
+	template <class T, class Container> bool operator==(const queue<T,Container>& lhs, const queue<T,Container>& rhs);
+	template <class T, class Container> bool operator!=(const queue<T,Container>& lhs, const queue<T,Container>& rhs);
+	template <class T, class Container> bool operator<(const queue<T,Container>& lhs, const  queue<T,Container>& rhs);
+	template <class T, class Container> bool operator<=(const queue<T,Container>& lhs, const queue<T,Container>& rhs);
+	template <class T, class Container> bool operator>(const queue<T,Container>& lhs, const queue<T,Container>& rhs);
+	template <class T, class Container> bool operator>=(const queue<T,Container>& lhs, const queue<T,Container>& rhs);
+
+}
+
+
+template <class T, class Container> bool ft::operator==(const ft::queue<T,Container>& lhs, const ft::queue<T,Container>& rhs) {
+	return lhs.getQueue() == rhs.getQueue();
+}
+
+template <class T, class Container> bool ft::operator!=(const ft::queue<T,Container>& lhs, const ft::queue<T,Container>& rhs) {
+	return lhs.getQueue() != rhs.getQueue();
+}
+
+template <class T, class Container> bool ft::operator<(const ft::queue<T,Container>& lhs, const ft::queue<T,Container>& rhs) {
+	return lhs.getQueue() < rhs.getQueue();
+}
+
+template <class T, class Container> bool ft::operator<=(const ft::queue<T,Container>& lhs, const ft::queue<T,Container>& rhs) {
+	return lhs.getQueue() <= rhs.getQueue();
+}
+
+template <class T, class Container> bool ft::operator> (const ft::queue<T,Container>& lhs, const ft::queue<T,Container>& rhs) {
+	return lhs.getQueue() > rhs.getQueue();
+}
+
+template <class T, class Container> bool ft::operator>=(const ft::queue<T,Container>& lhs, const ft::queue<T,Container>& rhs) {
+	return  lhs.getQueue() >= rhs.getQueue();
 }
 
 #endif //FT_CONTAINER_QUEUE_HPP

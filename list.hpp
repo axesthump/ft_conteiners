@@ -101,16 +101,24 @@ private:
 	 public:
 		 explicit const_iterator(t_node* ptr = 0): p(ptr) {}
 		 const_iterator(const const_iterator& it) { *this = it; }
+		 const_iterator(const iterator& it) { *this = it; }
+
 		 const_iterator& operator=(const const_iterator& it) {
 			 if (this != &it) {
 				 p = it.p;
 			 }
 			 return *this;
 		 }
+
+		 const_iterator& operator=(const iterator& it) {
+			 p = it.getPtr();
+			 return *this;
+		 }
+
 		 ~const_iterator(){}
 
 		 bool operator==(const iterator& rhs) const {
-			 return (p == rhs.p);
+			 return (p == rhs.getPtr());
 		 }
 
 		 bool operator==(const const_iterator& rhs) const {
@@ -119,7 +127,7 @@ private:
 
 
 		 bool operator!=(const iterator& rhs) const {
-			 return (p != rhs.p);
+			 return (p != rhs.getPtr());
 		 }
 
 		 bool operator!=(const const_iterator& rhs) const {
@@ -134,10 +142,10 @@ private:
 		 value_type const* operator->() const { return p->data; }
 
 		 const_iterator& operator++() { p = p->next; return *this; }
-		 const_iterator& operator++(int) { const_iterator temp = *this; p = p->next; return temp; }
+		 const_iterator operator++(int) { const_iterator temp = *this; p = p->next; return temp; }
 
 		 const_iterator& operator--() { p = p->prev; return *this; }
-		 const_iterator& operator--(int) { const_iterator temp = p; p = p->prev; return temp; }
+		 const_iterator operator--(int) { const_iterator temp = p; p = p->prev; return temp; }
 
 	 private:
 		 t_node * p;
@@ -145,7 +153,7 @@ private:
 	 };
 
  public:
-	 class reverse_iterator: public std::reverse_iterator<iterator> {
+class reverse_iterator: public std::reverse_iterator<list::iterator> {
 	 public:
 		 explicit reverse_iterator(t_node* ptr = 0): p(ptr) {}
 		 reverse_iterator(const reverse_iterator& it) { *this = it; }
@@ -182,10 +190,10 @@ private:
 		 value_type* operator->() const { return p->data; }
 
 		 reverse_iterator& operator++() { p = p->prev; return *this; }
-		 reverse_iterator& operator++(int) { reverse_iterator temp = *this; p = p->prev; return temp; }
+		 reverse_iterator operator++(int) { reverse_iterator temp = *this; p = p->prev; return temp; }
 
 		 reverse_iterator& operator--() { p = p->next; return *this; }
-		 reverse_iterator& operator--(int) { reverse_iterator temp = *this; p = p->next; return temp; }
+		 reverse_iterator operator--(int) { reverse_iterator temp = *this; p = p->next; return temp; }
 
 	 private:
 		 t_node * p;
@@ -193,20 +201,25 @@ private:
 	 };
 
  public:
-	 class const_reverse_iterator: public std::reverse_iterator<const_iterator> {
+class const_reverse_iterator: public std::reverse_iterator<list::const_iterator> {
 	 public:
 		 explicit const_reverse_iterator(t_node* ptr = 0): p(ptr) {}
-		 const_reverse_iterator(const const_reverse_iterator& it) { *this = it; }
+		 const_reverse_iterator(const const_reverse_iterator & it) { *this = it; }
+		 const_reverse_iterator(const reverse_iterator & it) { *this = it; }
 		 const_reverse_iterator& operator=(const const_reverse_iterator& it) {
 			 if (this != &it) {
 				 p = it.p;
 			 }
 			 return *this;
 		 }
+		const_reverse_iterator& operator=(const reverse_iterator& it) {
+		 	p = it.getPtr();
+			return *this;
+		}
 		 ~const_reverse_iterator(){}
 
 		 bool operator==(const reverse_iterator& rhs) const {
-			 return (p == rhs.p);
+			 return (p == rhs.getPtr());
 		 }
 
 		 bool operator==(const const_reverse_iterator& rhs) const {
@@ -215,7 +228,7 @@ private:
 
 
 		 bool operator!=(const reverse_iterator& rhs) const {
-			 return (p != rhs.p);
+			 return (p != rhs.getPtr());
 		 }
 
 		 bool operator!=(const const_reverse_iterator& rhs) const {
@@ -230,10 +243,10 @@ private:
 		 value_type const* operator->() const { return p->data; }
 
 		 const_reverse_iterator& operator++() { p = p->prev; return *this; }
-		 const_reverse_iterator& operator++(int) { reverse_iterator temp = *this; p = p->prev; return temp; }
+		 const_reverse_iterator operator++(int) { const_reverse_iterator temp = *this; p = p->prev; return temp; }
 
 		 const_reverse_iterator& operator--() { p = p->next; return *this; }
-		 const_reverse_iterator& operator--(int) { reverse_iterator temp = *this; p = p->next; return temp; }
+		 const_reverse_iterator operator--(int) { const_reverse_iterator temp = *this; p = p->next; return temp; }
 
 	 private:
 		 t_node * p;
@@ -249,7 +262,7 @@ public:
 	}
 
 	explicit list (size_type n, const value_type& val = value_type(),
-				   const allocator_type& alloc = allocator_type()) {
+				   const allocator_type& alloc = allocator_type()): _size(0) {
 		this->alloc = alloc;
 		create_end_node();
 
@@ -258,9 +271,10 @@ public:
 		}
 	}
 
-	template <class InputIterator> // todo Сделать typename ft::enable_if<std::__is_input_iterator<InputIterator>::value>::type* = 0
+	template <class InputIterator>
 	list (InputIterator first, InputIterator last,
 		  const allocator_type& alloc = allocator_type(), typename ft::enable_if<std::__is_input_iterator<InputIterator>::value>::type* = 0) {
+		_size = 0;
 		this->alloc = alloc;
 		create_end_node();
 		while(first != last) {
@@ -269,7 +283,7 @@ public:
 		}
 	}
 
-	list (const list& x): _size(0) { // todo ХЗ
+	list (const list& x): _size(0) {
 		create_end_node();
 		*this = x;
 	}
@@ -281,6 +295,13 @@ public:
 			push_back(*first);
 		}
 		return *this;
+	}
+
+	~list() {
+		clear();
+		alloc.destroy(end_node->data);
+		alloc.deallocate(end_node->data, 1);
+		allocator_rebind.deallocate(end_node, 1);
 	}
 
 	iterator begin() {
@@ -350,8 +371,10 @@ public:
 	}
 
 	void pop_front() {
-		if (_size)
+		if (_size) {
 			end_node->next = delete_node(end_node->next);
+			end_node->next->prev = end_node;
+		}
 	}
 
 	void pop_back() {
@@ -375,7 +398,7 @@ public:
 
 	template <class InputIterator>
 	void insert (iterator position, InputIterator first, InputIterator last) {
-		ft::list<T> temp(first, last); //todo странное решение может почистить
+		ft::list<T> temp(first, last);
 		iterator firstT = temp.begin();
 		iterator lastT = temp.end();
 		for (; firstT != lastT; ++firstT) {
@@ -449,7 +472,7 @@ public:
 	}
 
 	template <class Predicate>
-	void remove_if (Predicate pred) { // todo тут шляпа!
+	void remove_if (Predicate pred) {
 		iterator start = begin();
 		while (start != end()) {
 			if (pred(*start))
@@ -489,42 +512,47 @@ public:
 	}
 
 	void merge (list& x) {
-		if (begin() == x.begin())
-			return ;
-		iterator start = begin();
-		iterator xStart = x.begin();
-		iterator xBegin = x.begin();
-		while (start != end() && xStart != x.end()) {
-			while (start != end() && *start != *xStart)
-				++start;
-			if (start == end())
+		if (this == &x)
+			return;
+		iterator thisIterator = begin();
+		iterator targetIterator = x.begin();
+		size_type i = x._size;
+		while (i){
+			if (thisIterator == end()){
+				splice(thisIterator, x, targetIterator, x.end());
 				break;
-			iterator prev = xStart;
-			++xStart;
-			splice(start, x, prev);
+			}
+			if (*targetIterator <= *thisIterator){
+				thisIterator = insert(thisIterator, *targetIterator);
+				x.pop_front();
+				i--;
+				targetIterator++;
+			}
+			thisIterator++;
 		}
-		if (xStart != x.end())
-			splice(start, x, xStart, x.end());
+
 	}
 
 	template <class Compare>
 	void merge (list& x, Compare comp) {
-		if (begin() == x.begin())
-			return ;
-		iterator start = begin();
-		iterator xStart = x.begin();
-		iterator xBegin = x.begin();
-		while (start != end() && xStart != x.end()) {
-			while (start != end() && !comp(*start, *xStart))
-				++start;
-			if (start == end())
+		if (this == &x)
+			return;
+		iterator thIt = begin();
+		iterator xIt = x.begin();
+		size_type i = x._size;
+		while (i){
+			if (thIt == end()){
+				splice(thIt, x, xIt, x.end());
 				break;
-			iterator prev = xStart;
-			++xStart;
-			splice(start, x, prev);
+			}
+			if (comp(*xIt, *thIt)){
+				thIt = insert(thIt, *xIt);
+				x.pop_front();
+				i--;
+				xIt++;
+			}
+			thIt++;
 		}
-		if (xStart != x.end())
-			splice(start, x, xStart, x.end());
 	}
 
 
@@ -640,63 +668,58 @@ private:
 
 
 }; //end list
-
-
-} //end ft
-
-
-template <class InputIterator1, class InputIterator2>
-bool my_lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
-							  InputIterator2 first2, InputIterator2 last2)
-{
-	while (first1!=last1)
-	{
-		if (first2==last2 || *first2<*first1) return false;
-		else if (*first1<*first2) return true;
-		++first1; ++first2;
-	}
-	return (first2!=last2);
-}
-
-// Relational operators (list)
-template <class T, class Alloc>
-bool operator== (const ft::list<T,Alloc>& lhs, const ft::list<T,Alloc>& rhs) {
-	if (lhs.size() != rhs.size()) {
+	template <class T, class Alloc>
+	bool operator==(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) {
+		typename ft::list<T, Alloc>::const_iterator it = rhs.begin();
+		typename ft::list<T, Alloc>::const_iterator i = lhs.begin();
+		if (lhs.size() == rhs.size() && lhs.size() == 0)
+			return true;
+		if (lhs.size() == rhs.size()) {
+			for (; i != lhs.end() && it != rhs.end(); ++i)
+				if (*i != *it++)
+					return false;
+			return true;
+		}
 		return false;
 	}
-	typename ft::list<T, Alloc>::const_iterator l_start = lhs.begin();
-	typename ft::list<T, Alloc>::const_iterator r_start = lhs.begin();
-	for (; l_start != lhs.end(); ++l_start, ++r_start) {
-		if (*l_start != *r_start) {
+
+	template <class T, class Alloc>
+	bool operator!= (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) { return !(lhs == rhs); }
+
+	template <class T, class Alloc>
+	bool operator<  (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) {
+		typename ft::list<T, Alloc>::const_iterator rhsBegin = rhs.begin();
+		typename ft::list<T, Alloc>::const_iterator lhsBegin = lhs.begin();
+		typename ft::list<T, Alloc>::const_iterator rhsEnd = rhs.end();
+		typename ft::list<T, Alloc>::const_iterator lhsEnd = lhs.end();
+
+		if (lhs.size() == rhs.size() && lhs.size() == 0)
 			return false;
+		while (rhsBegin != rhsEnd && lhsBegin != lhsEnd) {
+			if (*lhsBegin++ < *rhsBegin++)
+				return true;
 		}
+		if (rhs.size() != lhs.size())
+			return lhs.size() < rhs.size();
+		return false;
 	}
-	return true;
-}
 
-template <class T, class Alloc>
-bool operator!= (const ft::list<T,Alloc>& lhs, const ft::list<T,Alloc>& rhs) {
-	return !(lhs == rhs);
-}
+	template <class T, class Alloc>
+	bool operator<=(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) {
+		return (!(rhs < lhs));
+	}
 
+	template <class T, class Alloc>
+	bool operator>(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) {
+		return (rhs < lhs);
+	}
+	template <class T, class Alloc>
+	bool operator>=(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) {
+		return (!(lhs < rhs));
+	}
 
-template <class T, class Alloc>
-bool operator<  (const ft::list<T,Alloc>& lhs, const ft::list<T,Alloc>& rhs) {
-	!my_lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-}
+	template <class T, class Alloc> void swap(list<T,Alloc>& x, list<T,Alloc>& y) { x.swap(y);};
 
-template <class T, class Alloc>
-bool operator<= (const ft::list<T,Alloc>& lhs, const ft::list<T,Alloc>& rhs) {
-	return lhs < rhs || lhs == rhs;
-}
-
-template <class T, class Alloc>
-bool operator>  (const ft::list<T,Alloc>& lhs, const ft::list<T,Alloc>& rhs) {
-	my_lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-}
-template <class T, class Alloc>
-bool operator>= (const ft::list<T,Alloc>& lhs, const ft::list<T,Alloc>& rhs) {
-	return lhs > rhs || lhs == rhs;
-}
+} //end ft
 
 #endif //FT_CONTAINER_LIST_HPP

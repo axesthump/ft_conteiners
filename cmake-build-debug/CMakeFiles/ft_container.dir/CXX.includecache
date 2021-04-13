@@ -8,33 +8,21 @@
 
 /Users/casubmar/ft_conteiners/ft.hpp
 
-/Users/casubmar/ft_conteiners/list.hpp
-memory
--
-stdexcept
--
-cstddef
--
-limits
--
-ft.hpp
-/Users/casubmar/ft_conteiners/ft.hpp
-
 /Users/casubmar/ft_conteiners/main.cpp
-list
--
-vector
--
-list.hpp
-/Users/casubmar/ft_conteiners/list.hpp
-cmath
--
+map.hpp
+/Users/casubmar/ft_conteiners/map.hpp
+string
+/Users/casubmar/ft_conteiners/string
 iostream
 /Users/casubmar/ft_conteiners/iostream
-vector.hpp
-/Users/casubmar/ft_conteiners/vector.hpp
-
-/Users/casubmar/ft_conteiners/vector.hpp
-iostream
+map
 -
+
+/Users/casubmar/ft_conteiners/map.hpp
+string
+/Users/casubmar/ft_conteiners/string
+ft.hpp
+/Users/casubmar/ft_conteiners/ft.hpp
+iostream
+/Users/casubmar/ft_conteiners/iostream
 

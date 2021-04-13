@@ -4,6 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/Users/casubmar/ft_conteiners/unit_tests/list.cpp" "/Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests/CMakeFiles/Google_Tests_run.dir/list.cpp.o"
+  "/Users/casubmar/ft_conteiners/unit_tests/map.cpp" "/Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests/CMakeFiles/Google_Tests_run.dir/map.cpp.o"
+  "/Users/casubmar/ft_conteiners/unit_tests/queue.cpp" "/Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests/CMakeFiles/Google_Tests_run.dir/queue.cpp.o"
+  "/Users/casubmar/ft_conteiners/unit_tests/stack.cpp" "/Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests/CMakeFiles/Google_Tests_run.dir/stack.cpp.o"
   "/Users/casubmar/ft_conteiners/unit_tests/vector.cpp" "/Users/casubmar/ft_conteiners/cmake-build-debug/unit_tests/CMakeFiles/Google_Tests_run.dir/vector.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
